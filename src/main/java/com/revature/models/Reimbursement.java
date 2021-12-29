@@ -1,5 +1,7 @@
 package com.revature.models;
 
+import java.time.LocalTime;
+
 /**
  * This concrete Reimbursement class can include additional fields that can be used for
  * extended functionality of the ERS application.
@@ -13,8 +15,39 @@ package com.revature.models;
  * </ul>
  *
  */
+//LocalTime time = LocalTime.now();
+//System.out.println(time);
 public class Reimbursement extends AbstractReimbursement {
+	
+	private String description;
+	private String creationdate;
+	private String resolutiondate;
+	//RECEIPT IMAGE?
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getCreationdate() {
+		return creationdate;
+	}
+
+	public void setCreationdate(String creationdate) {
+		this.creationdate = creationdate;
+	}
+
+	public String getResolutiondate() {
+		return resolutiondate;
+	}
+
+	public void setResolutiondate(String resolutiondate) {
+		this.resolutiondate = resolutiondate;
+	}
+	
     public Reimbursement() {
         super();
     }
@@ -25,5 +58,10 @@ public class Reimbursement extends AbstractReimbursement {
      */
     public Reimbursement(int id, Status status, User author, User resolver, double amount) {
         super(id, status, author, resolver, amount);
+    }
+    
+    public Reimbursement(int id, Status status, User author, User resolver, double amount, String description, String creationdate, String resolutiondate) {
+        super(id, status, author, resolver, amount);
+        
     }
 }

@@ -1,15 +1,19 @@
 package com.revature.models;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.xml.crypto.KeySelector.Purpose;
+
 import com.revature.repositories.UserDAO;
+import com.revature.services.UserService;
 
 //Menu class with have a method that displays the menu to the user and they can interact with it
 //Menu class will use the Scanner class in taking user inputs
 public class TemporaryMenu {
 	
-	UserDAO uDAO = new UserDAO(); //we need this object to use the methods in the UserDAO
+	UserService uService = new UserService(); //In order to use methods from the UserService class
 	
 	public void menuOptions() {
 
@@ -20,17 +24,19 @@ public class TemporaryMenu {
 		System.out.println("--------------------------------------------------------");
 		System.out.println("Welcome to the Mobile Legends Employee Management System");
 		System.out.println("--------------------------------------------------------");
-		
+		System.out.println(" ");
+		System.out.println("I know you are here for a purpose. Please, type the CAPITAL LETTER of your choice.");
 		
 		//display the menu as long as the menuOptions boolean == true
 		//display all my menu options until boolean == false
 		while(menuOptions) {
 			
 			//menu options
-			System.out.println("Type the LETTER of your choice");
 			System.out.println("A -> Show all Employees");
-			System.out.println("B -> Show all Employees with a certain ID");
-			System.out.println("C -> Exit Application");
+			System.out.println("B -> Get Employees by Username");
+			System.out.println("C -> Get Employee by ID");
+			System.out.println("D -> New Employee");
+			System.out.println("E -> Exit Application");
 			
 			//The user chooses a menu option and the scanner takes the input and put it into a String variable
 			String input = scan.nextLine();
@@ -41,18 +47,64 @@ public class TemporaryMenu {
 			
 			//A break in each case block so that the other cases will not run
 			case "A": {
-
+				System.out.println(" ");
+				
 				//get the List of employees from the repository layer
-				List<User> users = uDAO.getUsers();
+				List<User> users = uService.getAllUsers();
+				
+				//enhanced for loop to print out all users one by one
+				for (User u : users) {
+					System.out.println(u);
+				}
 				break;
 			}
 			
 			case "B": {
-				System.out.println("Functionality tbd");
+				System.out.println(" ");
+				System.out.println("You chose B");
 				break;
 			}
 			
 			case "C": {
+				System.out.println("Please provide the User ID:");
+				int idInput = scan.nextInt();//get user's input for ID
+				scan.nextLine(); //To move to the nextLine
+				
+				List<User> users = uService.getUserById(idInput);
+				
+				for(User u : users) {
+					System.out.println(u);
+				}
+				break;
+			}
+			
+			case "D": {
+				System.out.println("Enter Username:");
+				String username = scan.nextLine();
+				
+				System.out.println("Enter Password:");
+				String password = scan.nextLine();
+				
+				System.out.println("Enter Role ID:");
+				System.out.println("1 -> Employee");
+				System.out.println("2 -> Finance Manager");
+
+    			String r=scan.nextLine();
+    			Role o;
+    			if(r.equals("1")) {
+    				o = Role.EMPLOYEE;
+    			} else {
+    				o = Role.FINANCE_MANAGER;
+    			}
+				
+				User userToBeRegistered = new User (username, password, o);
+				uService.createUser(userToBeRegistered);
+				
+				break;
+			}
+			
+			case "E": {
+				System.out.println(" ");
 				System.out.println("Have a great day! Goodbye.");
 				menuOptions = false;
 				break;

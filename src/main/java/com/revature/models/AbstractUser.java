@@ -30,6 +30,13 @@ public class AbstractUser {
         super();
     }
 
+    public AbstractUser(String username, String password, Role role) {
+        super();
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+    
     public AbstractUser(int id, String username, String password, Role role) {
         super();
         this.id = id;

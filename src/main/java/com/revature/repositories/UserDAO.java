@@ -1,9 +1,11 @@
 package com.revature.repositories;
 
+import com.revature.models.Role;
 import com.revature.models.User;
 import com.revature.util.ConnectionFactory;
 
 import java.sql.Connection; //?
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -31,17 +33,49 @@ public class UserDAO {
      * Additional fields may be null.
      */
     public User create(User userToBeRegistered) {
-        return userToBeRegistered;
+		try(Connection conn = ConnectionFactory.getConnection()){
+			
+			//we'll create a SQL statement using parameters to insert a new Employee
+			String sql = "INSERT INTO employees (username, password, role) " //creating a line break for readability
+					    + "VALUES (?, ?, ?); "; //these are parameters!! We have to specify the value of each "?"
+			
+			PreparedStatement ps = conn.prepareStatement(sql); //we use PreparedStatements for SQL commands with variables
+			
+			//use the PreparedStatement objects' methods to insert values into the query's ?s
+			//the values will come from the Employee object we send in.
+			ps.setString(1, userToBeRegistered.getUsername()); //1 is the first ?, 2 is the second, etc.
+			ps.setString(2, userToBeRegistered.getPassword());
+			if (userToBeRegistered.getRole().equals("1")) {
+				ps.setString(3, "Employee");
+			} else {
+				ps.setString(3, "Finance Manager");
+			}
+			
+							
+			//this executeUpdate() method actually sends and executes the SQL command we built
+			ps.executeUpdate(); //we use executeUpdate() for inserts, updates, and deletes. 
+			//we use executeQuery() for selects
+			
+			//send confirmation to the console if successul.
+			System.out.println("Employee " + userToBeRegistered.getUsername() + " created. Welcome aboard!");
+			
+			
+		} catch(SQLException e) {
+			System.out.println("User creation failed");
+			e.printStackTrace();
+		}
+		return userToBeRegistered;
     }
+    
     //(WHOLE METHOD KEVIN)
-    public List<User> getUsers(){
+    public List<User> getAllUsers(){
     	try (Connection connect = ConnectionFactory.getConnection()){
     		
     		//Initialize an empty ResultSet object that will store the results of our SQL query
     		ResultSet rs = null;
     
     		//Write the query that we want to send to the database and assign it to a String
-    		String sql = "SELECT * FROM employees;";
+    		String sql = "SELECT * FROM ers_users;";
     		
     		//Put the SQL query into a Statement object (The Connection object has a method for this!! implicit?)
     		Statement statement = connect.createStatement();
@@ -59,13 +93,21 @@ public class UserDAO {
     		//while there are results in the resultset
     		while(rs.next()) {	
     			
+    			String r=rs.getString("role");
+    			Role o;
+    			if(r.equalsIgnoreCase("employee")) {
+    				o = Role.EMPLOYEE;
+    			} else {
+    				o = Role.FINANCE_MANAGER;
+    			}
+    			
     			//Use the all args constructor to create a new User object from each returned row from the DB
     			User e = new User(
     				//we want to use rs.get for each column in the record
-    					rs.getInt("user_id"),
-    					rs.getString("f_name"),
-    					rs.getString("l_name"),
-    					rs.getRole()
+    					rs.getInt("id"),
+    					rs.getString("username"),
+    					rs.getString("password"),
+    					o
     					);
     			//and populate the ArrayList with each new Employee object
     			userList.add(e); //e is the new User object we created above
@@ -76,7 +118,7 @@ public class UserDAO {
     		return userList;
     		
     	} catch (SQLException e) {
-    		System.out.println("Something went wrong selecting employees!");
+    		System.out.println("Something went wrong obtaining the users!");
     		e.printStackTrace();
     	}
     	
@@ -84,4 +126,58 @@ public class UserDAO {
     	//(Since there's no guarantee that the try will run)
     }
     
+    public List<User> getUserById(int id) {
+		try(Connection connect = ConnectionFactory.getConnection()) {
+			
+			ResultSet rs = null;
+			
+			String sql = "SELECT * FROM ers_users WHERE id = ?";
+			
+			//when we need parameters we need to use a PREPARED Statement, as opposed to a Statement (seen above)
+			PreparedStatement ps = connect.prepareStatement(sql); //prepareStatment() as opposed to createStatment()
+			
+			//insert the methods argument (int id) as the first (and only) variable in our SQL query
+			ps.setInt(1, id); //the 1 here is referring to the first parameter (?) found in our SQL String
+			
+			rs = ps.executeQuery();
+			
+			//create an empty List to be filled with the data from the database
+			List<User> userList = new ArrayList<>();
+			
+	//we technically don't need this while loop since we're only getting one result back... see if you can refactor :)
+			while(rs.next()) { //while there are results in the result set...
+				
+				String r=rs.getString("role");
+    			Role o;
+    			if(r.equalsIgnoreCase("employee")) {
+    				o = Role.EMPLOYEE;
+    			} else {
+    				o = Role.FINANCE_MANAGER;
+    			}
+    			
+			//Use the all args Constructor to create a new Employee object from each returned row...
+			User e = new User(
+					//we want to use rs.getXYZ for each column in the record
+					rs.getInt("id"),
+					rs.getString("username"),
+					rs.getString("password"),
+					o
+					);
+			
+			//and populate the ArrayList with each new Employee object
+			userList.add(e); //e is the new Employee object we created above
+			}
+			
+			//when there are no more results in the ResultSet the while loop will break...
+			//return the populated List of Employees
+			return userList;
+			
+		} catch (SQLException e) {
+			System.out.println("Something went wrong with the database!"); 
+			e.printStackTrace();
+		}
+		return null;
+	}
+    
+   
 }

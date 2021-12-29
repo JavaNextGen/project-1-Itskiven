@@ -12,7 +12,7 @@ public class Driver {
     	
     	//Testing Database Connectivity
     	try(Connection connect = ConnectionFactory.getConnection()){
-    		System.out.println("Connection Successful");
+    		//System.out.println("Connection Successful");
     	} catch(SQLException e) {
     		System.out.println("Connection Failed");
     		e.printStackTrace();
