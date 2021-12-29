@@ -36,7 +36,7 @@ public class UserDAO {
 		try(Connection conn = ConnectionFactory.getConnection()){
 			
 			//we'll create a SQL statement using parameters to insert a new Employee
-			String sql = "INSERT INTO employees (username, password, role) " //creating a line break for readability
+			String sql = "INSERT INTO ers_users (username, password, role) " //creating a line break for readability
 					    + "VALUES (?, ?, ?); "; //these are parameters!! We have to specify the value of each "?"
 			
 			PreparedStatement ps = conn.prepareStatement(sql); //we use PreparedStatements for SQL commands with variables
@@ -45,11 +45,8 @@ public class UserDAO {
 			//the values will come from the Employee object we send in.
 			ps.setString(1, userToBeRegistered.getUsername()); //1 is the first ?, 2 is the second, etc.
 			ps.setString(2, userToBeRegistered.getPassword());
-			if (userToBeRegistered.getRole().equals("1")) {
-				ps.setString(3, "Employee");
-			} else {
-				ps.setString(3, "Finance Manager");
-			}
+			ps.setString(3, userToBeRegistered.getRole().name());
+			
 			
 							
 			//this executeUpdate() method actually sends and executes the SQL command we built

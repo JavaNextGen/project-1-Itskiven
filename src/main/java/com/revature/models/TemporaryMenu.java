@@ -91,10 +91,15 @@ public class TemporaryMenu {
 
     			String r=scan.nextLine();
     			Role o;
+    			
     			if(r.equals("1")) {
     				o = Role.EMPLOYEE;
-    			} else {
+    			} else if (r.equals("2")) {
     				o = Role.FINANCE_MANAGER;
+    			} else {
+    				System.out.println("Not a Valid Choice!");
+    				o = null;
+    				break;
     			}
 				
 				User userToBeRegistered = new User (username, password, o);
