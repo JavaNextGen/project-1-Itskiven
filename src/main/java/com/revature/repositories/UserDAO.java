@@ -1,5 +1,6 @@
 package com.revature.repositories;
 
+import com.revature.models.Status;
 import com.revature.models.Role;
 import com.revature.models.User;
 import com.revature.util.ConnectionFactory;
@@ -18,9 +19,62 @@ public class UserDAO {
     /**
      * Should retrieve a User from the DB with the corresponding username or an empty optional if there is no match.
      */
-    public Optional<User> getByUsername(String username) {
-        return Optional.empty();
-    }
+	public Optional<User> getByUsername(String username) {
+		return Optional.empty();
+	}
+	
+    public User getUsersByUsername(String username) {
+		try(Connection connect = ConnectionFactory.getConnection()) {
+			
+			ResultSet rs = null;
+			
+			String sql = "SELECT * FROM ers_users WHERE username = ?";
+			
+			//when we need parameters we need to use a PREPARED Statement, as opposed to a Statement (seen above)
+			PreparedStatement ps = connect.prepareStatement(sql); //prepareStatment() as opposed to createStatment()
+			
+			//insert the methods argument (int id) as the first (and only) variable in our SQL query
+			ps.setString(1, username); //the 1 here is referring to the first parameter (?) found in our SQL String
+			
+			rs = ps.executeQuery();
+			
+			//create an empty List to be filled with the data from the database
+			User resultuser = new User();
+			
+	//we technically don't need this while loop since we're only getting one result back... see if you can refactor :)
+			while(rs.next()) { //while there are results in the result set...
+				
+				String r=rs.getString("role");
+    			Role o;
+    			if(r.equalsIgnoreCase("employee")) {
+    				o = Role.EMPLOYEE;
+    			} else {
+    				o = Role.FINANCE_MANAGER;
+    			}
+    			
+			//Use the all args Constructor to create a new Employee object from each returned row...
+			User e = new User(
+					//we want to use rs.getXYZ for each column in the record
+					rs.getInt("id"),
+					rs.getString("username"),
+					rs.getString("password"),
+					o
+					);
+			
+			//and populate the ArrayList with each new Employee object
+			resultuser = e; //e is the new Employee object we created above
+			}
+			
+			//when there are no more results in the ResultSet the while loop will break...
+			//return the populated List of Employees
+			return resultuser;
+			
+		} catch (SQLException e) {
+			System.out.println("Something went wrong with the database!"); 
+			e.printStackTrace();
+		}
+		return null;
+	}
 
     /**
      * <ul>
@@ -123,7 +177,7 @@ public class UserDAO {
     	//(Since there's no guarantee that the try will run)
     }
     
-    public List<User> getUserById(int id) {
+    public User getUserById(int id) {
 		try(Connection connect = ConnectionFactory.getConnection()) {
 			
 			ResultSet rs = null;
@@ -139,7 +193,7 @@ public class UserDAO {
 			rs = ps.executeQuery();
 			
 			//create an empty List to be filled with the data from the database
-			List<User> userList = new ArrayList<>();
+			User resultuser = new User();
 			
 	//we technically don't need this while loop since we're only getting one result back... see if you can refactor :)
 			while(rs.next()) { //while there are results in the result set...
@@ -162,12 +216,12 @@ public class UserDAO {
 					);
 			
 			//and populate the ArrayList with each new Employee object
-			userList.add(e); //e is the new Employee object we created above
+			resultuser = e; //e is the new Employee object we created above
 			}
 			
 			//when there are no more results in the ResultSet the while loop will break...
 			//return the populated List of Employees
-			return userList;
+			return resultuser;
 			
 		} catch (SQLException e) {
 			System.out.println("Something went wrong with the database!"); 
@@ -176,5 +230,99 @@ public class UserDAO {
 		return null;
 	}
     
-   
+    public Role getUserRole(String username, String password) {
+		try(Connection connect = ConnectionFactory.getConnection()) {
+			
+			ResultSet rs = null;
+			
+			String sql = "SELECT role FROM ers_users WHERE username = ? AND password = ?";
+			
+			//when we need parameters we need to use a PREPARED Statement, as opposed to a Statement (seen above)
+			PreparedStatement ps = connect.prepareStatement(sql); //prepareStatment() as opposed to createStatment()
+			
+			//insert the methods argument (int id) as the first (and only) variable in our SQL query
+			ps.setString(1, username); //the 1 here is referring to the first parameter (?) found in our SQL String
+			ps.setString(2, password);
+			
+			rs = ps.executeQuery();
+			
+			//create an empty List to be filled with the data from the database
+			Role resultuser = null;
+			
+	//we technically don't need this while loop since we're only getting one result back... see if you can refactor :)
+			while(rs.next()) { //while there are results in the result set...
+				
+				String r=rs.getString("role");
+    			Role o;
+    			if(r.equalsIgnoreCase("employee")) {
+    				o = Role.EMPLOYEE;
+    			} else {
+    				o = Role.FINANCE_MANAGER;
+    			}
+    			
+			
+			
+			//and populate the ArrayList with each new Employee object
+			resultuser = o; //e is the new Employee object we created above
+			}
+			
+			//when there are no more results in the ResultSet the while loop will break...
+			//return the populated List of Employees
+			return resultuser;
+			
+		} catch (SQLException e) {
+			System.out.println("Something went wrong with the database!"); 
+			e.printStackTrace();
+		}
+		return null;
+	}
+    
+    public int getUserId(String username, String password) {
+		try(Connection connect = ConnectionFactory.getConnection()) {
+			
+			ResultSet rs = null;
+			
+			String sql = "SELECT id FROM ers_users WHERE username = ? AND password = ?";
+			
+			//when we need parameters we need to use a PREPARED Statement, as opposed to a Statement (seen above)
+			PreparedStatement ps = connect.prepareStatement(sql); //prepareStatment() as opposed to createStatment()
+			
+			//insert the methods argument (int id) as the first (and only) variable in our SQL query
+			ps.setString(1, username); //the 1 here is referring to the first parameter (?) found in our SQL String
+			ps.setString(2, password);
+			
+			rs = ps.executeQuery();
+			
+			//create an empty List to be filled with the data from the database
+			int resultuser = 0;
+			
+	//we technically don't need this while loop since we're only getting one result back... see if you can refactor :)
+			while(rs.next()) { //while there are results in the result set...
+				
+			
+				int r=rs.getInt("id");
+				resultuser = r;
+				
+				}
+    			
+			
+			return resultuser;
+			//and populate the ArrayList with each new Employee object
+			 //e is the new Employee object we created above
+			
+			
+			
+			//when there are no more results in the ResultSet the while loop will break...
+			//return the populated List of Employees
+		
+			
+		} catch (SQLException e) {
+			System.out.println("Something went wrong with the database!"); 
+			e.printStackTrace();
+		}
+		return (Integer) null;
+	}
+    
 }
+
+

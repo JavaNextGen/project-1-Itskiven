@@ -3,6 +3,7 @@ package com.revature.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.revature.models.Role;
 import com.revature.models.User;
 import com.revature.repositories.UserDAO;
 
@@ -32,6 +33,11 @@ public class UserService {
 		return Optional.empty();
 	}
 	
+	public User getUsersByUsername(String username) {
+		
+		return uDAO.getUsersByUsername(username);
+	}
+	
 	//WHOLE METHOD (KEVIN)
 	public List<User> getAllUsers() {
 		
@@ -50,11 +56,26 @@ public class UserService {
 		uDAO.create(userToBeRegistered);
 	}
 	
-	public List<User> getUserById (int idInput) {
+	public User getUserById (int idInput) {
 		
-		List<User> user = uDAO.getUserById(idInput);
-		
-		return user;
+		return uDAO.getUserById(idInput);
 	}
+	
+	public Role getUserRole(String username, String password) {
+		return uDAO.getUserRole(username, password);
+	}
+	
+	public int getUserId(String username, String password) {
+		return uDAO.getUserId(username, password);
+	}
+	
+	public String getUserAuthor(String username, String password) {
+		return uDAO.getUserAuthor(username, password);
+	}
+	
+	public String getUserResolver(String username, String password) {
+		return uDAO.getUserResolver(username, password);
+	}
+	
 	
 }

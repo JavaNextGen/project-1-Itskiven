@@ -29,7 +29,7 @@ public class AbstractReimbursement {
 
     public AbstractReimbursement() {
         super();
-    }
+    } 
 
     public AbstractReimbursement(int id, Status status, User author, User resolver, double amount) {
         super();

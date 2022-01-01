@@ -2,7 +2,11 @@ package com.revature.repositories;
 
 import com.revature.models.Reimbursement;
 import com.revature.models.Status;
+import com.revature.util.ConnectionFactory;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -33,4 +37,36 @@ public class ReimbursementDAO {
     public Reimbursement update(Reimbursement unprocessedReimbursement) {
     	return null;
     }
+
+	public void submit(Reimbursement reimbursementToBeSubmitted) {
+		try (Connection connect = ConnectionFactory.getConnection()) {
+			
+			String sql = "INSERT INTO reimbursement (id, status, author, resolver, amount)"
+						+ "VALUES (?, ?, ?, ?)";
+			
+			PreparedStatement ps = connect.prepareStatement(sql);
+			//use the PreparedStatement objects' methods to insert values into the query's ?s
+			//the values will come from the Employee object we send in.
+			ps.setInt(1, reimbursementToBeSubmitted.getId()); //1 is the first ?, 2 is the second, etc.
+			ps.setString(2, reimbursementToBeSubmitted.getStatus().name());
+			ps.setString(3, reimbursementToBeSubmitted.getAuthor().getUsername());
+			ps.setString(4, reimbursementToBeSubmitted.getResolver().getUsername());
+			ps.setDouble(5, reimbursementToBeSubmitted.getAmount());
+			
+			
+							
+			//this executeUpdate() method actually sends and executes the SQL command we built
+			ps.executeUpdate(); //we use executeUpdate() for inserts, updates, and deletes. 
+			//we use executeQuery() for selects
+			
+			//send confirmation to the console if successul.
+			System.out.println("Reimbursement created by " + reimbursementToBeSubmitted.getAuthor() + "submitted.");
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 }

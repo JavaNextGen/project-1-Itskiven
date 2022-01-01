@@ -32,4 +32,8 @@ public class User extends AbstractUser {
     public User(int id, String username, String password, Role role) {
         super(id, username, password, role);
     }
+
+	public User(int int1) {
+		// TODO Auto-generated constructor stub
+	}
 }

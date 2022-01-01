@@ -99,4 +99,6 @@ public class AbstractUser {
                 ", role=" + role +
                 '}';
     }
+    
+    
 }
