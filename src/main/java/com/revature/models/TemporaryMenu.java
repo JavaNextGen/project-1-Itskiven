@@ -8,6 +8,7 @@ import java.util.Scanner;
 import javax.xml.crypto.KeySelector.Purpose;
 
 import com.revature.repositories.UserDAO;
+import com.revature.services.ReimbursementService;
 import com.revature.services.UserService;
 
 //Menu class with have a method that displays the menu to the user and they can interact with it
@@ -15,6 +16,7 @@ import com.revature.services.UserService;
 public class TemporaryMenu {
 	
 	UserService uService = new UserService(); //In order to use methods from the UserService class
+	ReimbursementService rService = new ReimbursementService();
 	Scanner scan = new Scanner(System.in); //Scanner object to take user input
 	
 	public void menuOptions() {
@@ -138,8 +140,6 @@ public class TemporaryMenu {
 				Role users = uService.getUserRole(username, password);
 				int users1 = uService.getUserId(username, password);
 				Status users2 = Status.PENDING;
-				String users3 = uService.getUserAuthor(username, password);
-				String users4 = uService.getUserResolver(username, password);
 				
 				if (users.toString().equalsIgnoreCase("employee")) {
 					System.out.println("You are an Employee");
@@ -157,10 +157,11 @@ public class TemporaryMenu {
 						
 						case "A": {
 							System.out.println("How Much?");
-							String amount = scan.nextLine();
+							double amount = scan.nextDouble();
+							scan.nextLine();
 							
-							Reimbursement reimbursementToBeSubmitted = new Reimbursement (users1, users2, users3, users4, amount);
-							
+							Reimbursement reimbursementToBeSubmitted = new Reimbursement (users1, users2, username, amount);
+							ReimbursementService.submitReimbursement(reimbursementToBeSubmitted);
 						}
 						
 						case "B": {
@@ -173,7 +174,7 @@ public class TemporaryMenu {
 					break;
 				} else {
 					System.out.println("You are a Finance Manager");
-					reimbursementFM();
+					
 					break;
 				}
 				
@@ -199,45 +200,5 @@ public class TemporaryMenu {
 		
 				
 	}//end of menuOptions method
-	
-	public void reimbursementE() {
-		boolean reimbursement = true;
-		while (reimbursement) {
-			System.out.println("What do you want to do? Please select the CAPITAL LETTER of your choice.");
-			System.out.println("A -> Submit a Reimbursement Request");
-			System.out.println("B -> View Reimbursement Statuses");
-			
-			String input = scan.nextLine();
-			
-			switch(input) {
-			
-			case "A": {
-				System.out.println("How Much?");
-				String amount = scan.nextLine();
-				
-				
-				Role users = uService.getUserRole(username, password);
-			}
-			
-			case "B": {
-				
-			}
-			}
-			
-			
-		}
-		
-	}
-	
-	public void reimbursementFM() {
-		boolean reimbursement = true;
-		while (reimbursement) {
-			System.out.println("What do you want to do? Please select the CAPITAL LETTER of your choice.");
-			System.out.println("A -> Submit a Reimbursement Request");
-			System.out.println("B -> Process Reimbursement Requests");
-			String input = scan.nextLine();
-		}
-		
-	}
 	
 } //end of TemporaryMenu class

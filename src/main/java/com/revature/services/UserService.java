@@ -69,13 +69,4 @@ public class UserService {
 		return uDAO.getUserId(username, password);
 	}
 	
-	public String getUserAuthor(String username, String password) {
-		return uDAO.getUserAuthor(username, password);
 	}
-	
-	public String getUserResolver(String username, String password) {
-		return uDAO.getUserResolver(username, password);
-	}
-	
-	
-}

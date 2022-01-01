@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class ReimbursementService {
 	
-	ReimbursementDAO rDAO = new ReimbursementDAO();
+	static ReimbursementDAO rDAO = new ReimbursementDAO();
 
     /**
      * <ul>
@@ -54,7 +54,7 @@ public class ReimbursementService {
         return Collections.emptyList();
     }
     
-    public void submitReimbursement (Reimbursement reimbursementToBeSubmitted) {
+    public static void submitReimbursement (Reimbursement reimbursementToBeSubmitted) {
     	rDAO.submit(reimbursementToBeSubmitted);
     }
 }

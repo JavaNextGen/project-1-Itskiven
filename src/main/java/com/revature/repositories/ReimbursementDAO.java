@@ -41,7 +41,7 @@ public class ReimbursementDAO {
 	public void submit(Reimbursement reimbursementToBeSubmitted) {
 		try (Connection connect = ConnectionFactory.getConnection()) {
 			
-			String sql = "INSERT INTO reimbursement (id, status, author, resolver, amount)"
+			String sql = "INSERT INTO reimbursement (id, status, author, amount)"
 						+ "VALUES (?, ?, ?, ?)";
 			
 			PreparedStatement ps = connect.prepareStatement(sql);
@@ -49,9 +49,8 @@ public class ReimbursementDAO {
 			//the values will come from the Employee object we send in.
 			ps.setInt(1, reimbursementToBeSubmitted.getId()); //1 is the first ?, 2 is the second, etc.
 			ps.setString(2, reimbursementToBeSubmitted.getStatus().name());
-			ps.setString(3, reimbursementToBeSubmitted.getAuthor().getUsername());
-			ps.setString(4, reimbursementToBeSubmitted.getResolver().getUsername());
-			ps.setDouble(5, reimbursementToBeSubmitted.getAmount());
+			ps.setString(3, reimbursementToBeSubmitted.getAuthor());
+			ps.setDouble(4, reimbursementToBeSubmitted.getAmount());
 			
 			
 							
