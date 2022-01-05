@@ -103,15 +103,28 @@ public class TemporaryMenu {
 				String password = scan.nextLine();
 				System.out.println(" ");
 				
+				System.out.println("Enter First Name:");
+				String fname = scan.nextLine();
+				System.out.println(" ");
+				
+				System.out.println("Enter Last Name:");
+				String lname = scan.nextLine();
+				System.out.println(" ");
+				
+				System.out.println("Enter Email:");
+				String email = scan.nextLine();
+				System.out.println(" ");
+				
 				System.out.println("Enter Role ID:");
 				System.out.println("1 -> Employee");
 				System.out.println("2 -> Finance Manager");
-    			String r=scan.nextLine();
+    			int r=scan.nextInt();
+    			scan.nextLine();
     			Role o;
     			
-    			if(r.equals("1")) {
+    			if(r == 1) {
     				o = Role.EMPLOYEE;
-    			} else if (r.equals("2")) {
+    			} else if (r == 2) {
     				o = Role.FINANCE_MANAGER;
     			} else {
     				System.out.println("Not a Valid Choice!");
@@ -120,65 +133,65 @@ public class TemporaryMenu {
     			}
     			System.out.println(" ");
 				
-				User userToBeRegistered = new User (username, password, o);
+				User userToBeRegistered = new User (username, password, fname, lname, email, o);
 				uService.createUser(userToBeRegistered);
 				System.out.println(" ");
 				break;
 			}
 			
-			case "E": {
-				
-				System.out.println(" ");
-				System.out.println("Enter Username:");
-				String username = scan.nextLine();
-				System.out.println(" ");
-				
-				System.out.println("Enter Password:");
-				String password = scan.nextLine();
-				System.out.println(" ");
-				
-				Role users = uService.getUserRole(username, password);
-				int users1 = uService.getUserId(username, password);
-				Status users2 = Status.PENDING;
-				
-				if (users.toString().equalsIgnoreCase("employee")) {
-					System.out.println("You are an Employee");
-					boolean reimbursement = true;
-					while (reimbursement) {
-						System.out.println("What do you want to do? Please select the CAPITAL LETTER of your choice.");
-						System.out.println("A -> Submit a Reimbursement Request");
-						System.out.println("B -> View Reimbursement Statuses");
-						
-						
-						String input1 = scan.nextLine();
-						
-						
-						switch(input1) {
-						
-						case "A": {
-							System.out.println("How Much?");
-							double amount = scan.nextDouble();
-							scan.nextLine();
-							
-							Reimbursement reimbursementToBeSubmitted = new Reimbursement (users1, users2, username, amount);
-							ReimbursementService.submitReimbursement(reimbursementToBeSubmitted);
-						}
-						
-						case "B": {
-							
-						}
-						}
-						
-						
-					}
-					break;
-				} else {
-					System.out.println("You are a Finance Manager");
-					
-					break;
-				}
-				
-			}
+//			case "E": {
+//				
+//				System.out.println(" ");
+//				System.out.println("Enter Username:");
+//				String username = scan.nextLine();
+//				System.out.println(" ");
+//				
+//				System.out.println("Enter Password:");
+//				String password = scan.nextLine();
+//				System.out.println(" ");
+//				
+//				Role users = uService.getUserRole(username, password);
+//				int users1 = uService.getUserId(username, password);
+//				Status users2 = Status.PENDING;
+//				
+//				if (users.toString().equalsIgnoreCase("employee")) {
+//					System.out.println("You are an Employee");
+//					boolean reimbursement = true;
+//					while (reimbursement) {
+//						System.out.println("What do you want to do? Please select the CAPITAL LETTER of your choice.");
+//						System.out.println("A -> Submit a Reimbursement Request");
+//						System.out.println("B -> View Reimbursement Statuses");
+//						
+//						
+//						String input1 = scan.nextLine();
+//						
+//						
+//						switch(input1) {
+//						
+//						case "A": {
+//							System.out.println("How Much?");
+//							double amount = scan.nextDouble();
+//							scan.nextLine();
+//							
+//							Reimbursement reimbursementToBeSubmitted = new Reimbursement (users1, users2, username, amount);
+//							ReimbursementService.submitReimbursement(reimbursementToBeSubmitted);
+//						}
+//						
+//						case "B": {
+//							
+//						}
+//						}
+//						
+//						
+//					}
+//					break;
+//				} else {
+//					System.out.println("You are a Finance Manager");
+//					
+//					break;
+//				}
+//				
+//			}
 			
 			case "F": {
 				System.out.println(" ");

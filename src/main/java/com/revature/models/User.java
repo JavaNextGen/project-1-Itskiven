@@ -16,7 +16,35 @@ package com.revature.models;
  */
 public class User extends AbstractUser {
 
-    public User() {
+	private String fname;
+	private String lname;
+	private String email;
+	
+	public String getFname() {
+		return fname;
+	}
+
+	public void setFname(String fname) {
+		this.fname = fname;
+	}
+
+	public String getLname() {
+		return lname;
+	}
+
+	public void setLname(String lname) {
+		this.lname = lname;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public User() {
         super();
     }
 
@@ -25,15 +53,19 @@ public class User extends AbstractUser {
      * If other fields are needed, please create additional constructors.
      */
     
-    public User(String username, String password, Role role) {
+    public User(String username, String password, String fname, String lname, String email , Role role) {
         super(username, password, role);
+        this.fname = fname;
+        this.lname = lname;
+        this.email = email;
     }
     
-    public User(int id, String username, String password, Role role) {
+    public User(int id, String username, String password, String fname, String lname, String email , Role role) {
         super(id, username, password, role);
+        this.fname = fname;
+        this.lname = lname;
+        this.email = email;
     }
 
-	public User(int int1) {
-		// TODO Auto-generated constructor stub
-	}
+	
 }

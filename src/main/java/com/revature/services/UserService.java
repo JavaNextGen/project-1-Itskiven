@@ -61,12 +61,4 @@ public class UserService {
 		return uDAO.getUserById(idInput);
 	}
 	
-	public Role getUserRole(String username, String password) {
-		return uDAO.getUserRole(username, password);
-	}
-	
-	public int getUserId(String username, String password) {
-		return uDAO.getUserId(username, password);
-	}
-	
 	}
