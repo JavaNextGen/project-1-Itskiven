@@ -23,22 +23,22 @@ public class AbstractReimbursement {
 
     private int id;
     private Status status;
-    private User author;
-    private User resolver;
+    private int author;
+    private int resolver;
     private double amount;
 
     public AbstractReimbursement() {
         super();
     }
     
-    public AbstractReimbursement(double amount, User author, Status status) {
+    public AbstractReimbursement(double amount, int author, Status status) {
         super();
         this.status = status;
         this.author = author;
         this.amount = amount;
     }
 
-    public AbstractReimbursement(double amount, User author, User resolver, Status status) {
+    public AbstractReimbursement(double amount, int author, int resolver, Status status) {
         super();
         this.status = status;
         this.author = author;
@@ -46,7 +46,7 @@ public class AbstractReimbursement {
         this.amount = amount;
     }
     
-    public AbstractReimbursement(int id, Status status, User author, User resolver, double amount) {
+    public AbstractReimbursement(int id, Status status, int author, int resolver, double amount) {
         super();
         this.id = id;
         this.status = status;
@@ -71,19 +71,19 @@ public class AbstractReimbursement {
         this.status = status;
     }
 
-    public User getAuthor() {
+    public int getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(int author) {
         this.author = author;
     }
 
-    public User getResolver() {
+    public int getResolver() {
         return resolver;
     }
 
-    public void setResolver(User resolver) {
+    public void setResolver(int resolver) {
         this.resolver = resolver;
     }
 

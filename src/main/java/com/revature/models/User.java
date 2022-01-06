@@ -67,5 +67,9 @@ public class User extends AbstractUser {
         this.email = email;
     }
 
+	public User(int id) {
+		super(id);
+	}
+
 	
 }

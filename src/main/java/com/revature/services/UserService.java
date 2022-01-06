@@ -38,7 +38,7 @@ public class UserService {
 		
 	} else {
 		System.out.println("Username Does Not Exists!");
-		return Optional.empty();
+		return null;
 	}
 	
 		
@@ -68,7 +68,7 @@ public class UserService {
 		
 	} else {
 		System.out.println("ID Does Not Exists!");
-		return Optional.empty();
+		return null;
 	}
 	}
 	
@@ -76,9 +76,9 @@ public class UserService {
 		return uDAO.getUserRole(username, password);
 	}
 	
-//	public User getAuthor(String username, String password) {
-//		return uDAO.getAuthor(username, password);
-//	}
+	public int getAuthor(String username, String password) {
+		return uDAO.getAuthor(username, password);
+	}
 	
 
 	}

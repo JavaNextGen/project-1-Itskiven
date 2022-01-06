@@ -19,7 +19,7 @@ import java.time.LocalTime;
 //System.out.println(time);
 public class Reimbursement extends AbstractReimbursement {
 	
-	private String typee;
+	private ReimbursementType typee;
 
 	
 	
@@ -31,26 +31,26 @@ public class Reimbursement extends AbstractReimbursement {
      * This includes the minimum parameters needed for the {@link com.revature.models.AbstractReimbursement} class.
      * If other fields are needed, please create additional constructors.
      */
-    public Reimbursement(double amount, User author, Status status, String typee) {
+    public Reimbursement(double amount, int author, Status status, ReimbursementType typee ) {
         super(amount, author, status);
         this.typee = typee;
     }
     
-    public Reimbursement(double amount, User author, User resolver, Status status, String typee) {
+    public Reimbursement(double amount, int author, int resolver, Status status, ReimbursementType typee) {
         super(amount, author, resolver, status);
         this.typee = typee;
     }
     
-    public Reimbursement(int id, double amount, User author, User resolver, Status status, String typee) {
+    public Reimbursement(int id, double amount, int author, int resolver, Status status, ReimbursementType typee) {
         super(id, status, author, resolver, amount);
         this.typee = typee;
     }
 
-	public String getType() {
+	public ReimbursementType getType() {
 		return typee;
 	}
 
-	public void setType(String type) {
+	public void setType(ReimbursementType type) {
 		this.typee = type;
 	}
 }

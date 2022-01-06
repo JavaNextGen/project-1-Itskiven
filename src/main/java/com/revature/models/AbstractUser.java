@@ -45,7 +45,11 @@ public class AbstractUser {
         this.role = role;
     }
 
-    public int getId() {
+    public AbstractUser(int id) {
+		this.id = id;
+	}
+
+	public int getId() {
         return id;
     }
 

@@ -51,8 +51,11 @@ public class ReimbursementService {
      * Should retrieve all reimbursements with the correct status.
      */
     public List<Reimbursement> getReimbursementsByStatus(Status status) {
-        return Collections.emptyList();
+       List<Reimbursement> reimbursement = rDAO.getByStatus(status);
+    	return reimbursement;
     }
+    
+
     
     public void submitReimbursement (Reimbursement reimbursementToBeSubmitted) {
     	rDAO.submit(reimbursementToBeSubmitted);

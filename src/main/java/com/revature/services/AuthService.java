@@ -31,9 +31,32 @@ public class AuthService {
      *     <li>Must return user object if the user logs in successfully.</li>
      * </ul>
      */
-    public User login(String username, String password) {
-        return null;
+    public Optional<User> login(String username, String password) {		
+    	
+    	Optional<User> user = null;
+    	
+    	try {
+    		Optional<User> login = uDAO.getByUsername(username);
+    		if (login != null) {
+    			if (password.equals(uDAO.getUserPass(username))) {
+    				user = login;
+    				System.out.println("Successfully Login!");
+    				
+    			} else {
+    				System.out.println("Wrong User-Password Input! Try Again");
+    			}
+    		} 
+    	} catch (Exception e) {
+    		System.out.println("Wrong User-Pass combination");
+    		e.printStackTrace();
+    	}
+    	
+    	return user;
     }
+    
+    public String getUserPass(String username) {
+		return uDAO.getUserPass(username);
+	}
 
     /**
      * <ul>
