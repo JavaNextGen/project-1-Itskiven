@@ -54,7 +54,7 @@ public class ReimbursementService {
         return Collections.emptyList();
     }
     
-    public static void submitReimbursement (Reimbursement reimbursementToBeSubmitted) {
+    public void submitReimbursement (Reimbursement reimbursementToBeSubmitted) {
     	rDAO.submit(reimbursementToBeSubmitted);
     }
 }

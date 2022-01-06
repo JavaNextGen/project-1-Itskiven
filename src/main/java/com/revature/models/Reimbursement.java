@@ -19,34 +19,9 @@ import java.time.LocalTime;
 //System.out.println(time);
 public class Reimbursement extends AbstractReimbursement {
 	
-	private String description;
-	private String creationdate;
-	private String resolutiondate;
-	//RECEIPT IMAGE?
+	private String typee;
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getCreationdate() {
-		return creationdate;
-	}
-
-	public void setCreationdate(String creationdate) {
-		this.creationdate = creationdate;
-	}
-
-	public String getResolutiondate() {
-		return resolutiondate;
-	}
-
-	public void setResolutiondate(String resolutiondate) {
-		this.resolutiondate = resolutiondate;
-	}
+	
 	
     public Reimbursement() {
         super();
@@ -56,14 +31,26 @@ public class Reimbursement extends AbstractReimbursement {
      * This includes the minimum parameters needed for the {@link com.revature.models.AbstractReimbursement} class.
      * If other fields are needed, please create additional constructors.
      */
-    public Reimbursement(int id, Status status, String author, double amount) {
-        super(id, status, author, amount);
+    public Reimbursement(double amount, User author, Status status, String typee) {
+        super(amount, author, status);
+        this.typee = typee;
     }
     
-
+    public Reimbursement(double amount, User author, User resolver, Status status, String typee) {
+        super(amount, author, resolver, status);
+        this.typee = typee;
+    }
     
-    public Reimbursement(int id, Status status, String author, User resolver, double amount, String description, String creationdate, String resolutiondate) {
+    public Reimbursement(int id, double amount, User author, User resolver, Status status, String typee) {
         super(id, status, author, resolver, amount);
-        
+        this.typee = typee;
     }
+
+	public String getType() {
+		return typee;
+	}
+
+	public void setType(String type) {
+		this.typee = type;
+	}
 }

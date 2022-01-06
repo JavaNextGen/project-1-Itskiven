@@ -23,23 +23,30 @@ public class AbstractReimbursement {
 
     private int id;
     private Status status;
-    private String author;
+    private User author;
     private User resolver;
     private double amount;
 
     public AbstractReimbursement() {
         super();
     }
-
-    public AbstractReimbursement(int id, Status status, String author, double amount) {
+    
+    public AbstractReimbursement(double amount, User author, Status status) {
         super();
-        this.id = id;
         this.status = status;
         this.author = author;
         this.amount = amount;
     }
+
+    public AbstractReimbursement(double amount, User author, User resolver, Status status) {
+        super();
+        this.status = status;
+        this.author = author;
+        this.resolver = resolver;
+        this.amount = amount;
+    }
     
-    public AbstractReimbursement(int id, Status status, String author, User resolver, double amount) {
+    public AbstractReimbursement(int id, Status status, User author, User resolver, double amount) {
         super();
         this.id = id;
         this.status = status;
@@ -64,11 +71,11 @@ public class AbstractReimbursement {
         this.status = status;
     }
 
-    public String getAuthor() {
+    public User getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(User author) {
         this.author = author;
     }
 

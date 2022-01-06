@@ -1,6 +1,8 @@
 package com.revature.services;
 
+import com.revature.exceptions.UsernameNotUniqueException;
 import com.revature.models.User;
+import com.revature.repositories.UserDAO;
 
 import java.util.Optional;
 
@@ -17,6 +19,8 @@ import java.util.Optional;
  * </ul>
  */
 public class AuthService {
+	
+	UserDAO uDAO = new UserDAO();
 
     /**
      * <ul>
@@ -44,10 +48,20 @@ public class AuthService {
      * Note: userToBeRegistered will have an id=0, additional fields may be null.
      * After registration, the id will be a positive integer.
      */
+    
+  //making a new user object
     public User register(User userToBeRegistered) {
-        return null;
+    	
+    
+    	//take in the user object sent from the menu and send it to the userDAO to be inserted into the database
+    	return uDAO.create(userToBeRegistered);
+    	
     }
-
+    
+    public static void throwUnchecked() {
+    	throw new UsernameNotUniqueException();
+    }
+	
     /**
      * This is an example method signature for retrieving the currently logged-in user.
      * It leverages the Optional type which is a useful interface to handle the
@@ -56,4 +70,6 @@ public class AuthService {
     public Optional<User> exampleRetrieveCurrentUser() {
         return Optional.empty();
     }
+    
+    
 }

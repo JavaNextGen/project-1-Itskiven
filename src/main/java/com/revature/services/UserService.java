@@ -30,13 +30,24 @@ public class UserService {
 	UserDAO uDAO = new UserDAO(); //Use methods in the UserDAO
 	
 	public Optional<User> getByUsername(String username) {
+		
+			if(uDAO.getByUsername(username).isPresent()) {
+			System.out.println("Username Exists!");
+			uDAO.getByUsername(username).get();
+			return uDAO.getByUsername(username);
+		
+	} else {
+		System.out.println("Username Does Not Exists!");
 		return Optional.empty();
 	}
 	
-	public User getUsersByUsername(String username) {
 		
-		return uDAO.getUsersByUsername(username);
 	}
+	
+//	public User getUsersByUsername(String username) {
+//		
+//		return uDAO.getUsersByUsername(username);
+//	}
 	
 	//WHOLE METHOD (KEVIN)
 	public List<User> getAllUsers() {
@@ -48,17 +59,29 @@ public class UserService {
 		return users;
 	}
 	
-	//making a new user object
-	public void createUser (User userToBeRegistered) {
-		//take in the user object sent from the menu and send it to the userDAO to be inserted into the database
+	public Optional<User> getUserById (int idInput) {
 		
-		//calling the userDAO method that inserts the new User object
-		uDAO.create(userToBeRegistered);
+		if(uDAO.getUserById(idInput).isPresent()) {
+			System.out.println("ID Exists!");
+			uDAO.getUserById(idInput).get();
+			return uDAO.getUserById(idInput);
+		
+	} else {
+		System.out.println("ID Does Not Exists!");
+		return Optional.empty();
+	}
 	}
 	
-	public User getUserById (int idInput) {
-		
-		return uDAO.getUserById(idInput);
+	public String getUserRole(String username, String password) {
+		return uDAO.getUserRole(username, password);
 	}
 	
+//	public User getAuthor(String username, String password) {
+//		return uDAO.getAuthor(username, password);
+//	}
+	
+
 	}
+
+	
+	

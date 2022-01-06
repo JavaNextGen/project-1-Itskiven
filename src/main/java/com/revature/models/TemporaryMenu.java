@@ -8,6 +8,7 @@ import java.util.Scanner;
 import javax.xml.crypto.KeySelector.Purpose;
 
 import com.revature.repositories.UserDAO;
+import com.revature.services.AuthService;
 import com.revature.services.ReimbursementService;
 import com.revature.services.UserService;
 
@@ -17,6 +18,7 @@ public class TemporaryMenu {
 	
 	UserService uService = new UserService(); //In order to use methods from the UserService class
 	ReimbursementService rService = new ReimbursementService();
+	AuthService aService = new AuthService();
 	Scanner scan = new Scanner(System.in); //Scanner object to take user input
 	
 	public void menuOptions() {
@@ -71,7 +73,7 @@ public class TemporaryMenu {
 				System.out.println("Please provide Username:");
 				String username = scan.nextLine(); //To move to the nextLine
 				System.out.println(" ");
-				User users = uService.getUsersByUsername(username);
+				Optional<User> users = uService.getByUsername(username);
 				
 				System.out.println(users);
 				
@@ -85,7 +87,7 @@ public class TemporaryMenu {
 				int idInput = scan.nextInt();//get user's input for ID
 				scan.nextLine(); //To move to the nextLine
 				System.out.println(" ");
-				User users = uService.getUserById(idInput);
+				Optional<User> users = uService.getUserById(idInput);
 				
 				System.out.println(users);
 				
@@ -120,21 +122,21 @@ public class TemporaryMenu {
 				System.out.println("2 -> Finance Manager");
     			int r=scan.nextInt();
     			scan.nextLine();
-    			Role o;
+    			Role role;
     			
     			if(r == 1) {
-    				o = Role.EMPLOYEE;
+    				role = Role.EMPLOYEE;
     			} else if (r == 2) {
-    				o = Role.FINANCE_MANAGER;
+    				role = Role.FINANCE_MANAGER;
     			} else {
     				System.out.println("Not a Valid Choice!");
-    				o = null;
+    				role = null;
     				break;
     			}
     			System.out.println(" ");
 				
-				User userToBeRegistered = new User (username, password, fname, lname, email, o);
-				uService.createUser(userToBeRegistered);
+				User userToBeRegistered = new User (username, password, fname, lname, email, role);
+				aService.register(userToBeRegistered);
 				System.out.println(" ");
 				break;
 			}
@@ -150,11 +152,16 @@ public class TemporaryMenu {
 //				String password = scan.nextLine();
 //				System.out.println(" ");
 //				
-//				Role users = uService.getUserRole(username, password);
-//				int users1 = uService.getUserId(username, password);
-//				Status users2 = Status.PENDING;
+//				String users = uService.getUserRole(username, password);
+//				User author = uService.getAuthor(username, password);
+//				User resolver = null;
+//				Status status = Status.PENDING;
+//				String typee;
 //				
-//				if (users.toString().equalsIgnoreCase("employee")) {
+//				
+//				System.out.println(users);
+//		
+//				if (users.equalsIgnoreCase("employee")) {
 //					System.out.println("You are an Employee");
 //					boolean reimbursement = true;
 //					while (reimbursement) {
@@ -170,11 +177,14 @@ public class TemporaryMenu {
 //						
 //						case "A": {
 //							System.out.println("How Much?");
+//							
 //							double amount = scan.nextDouble();
 //							scan.nextLine();
 //							
-//							Reimbursement reimbursementToBeSubmitted = new Reimbursement (users1, users2, username, amount);
-//							ReimbursementService.submitReimbursement(reimbursementToBeSubmitted);
+//							Reimbursement reimbursementToBeSubmitted = new Reimbursement(amount, author, resolver, status, typee);
+//							rService.submitReimbursement(reimbursementToBeSubmitted);
+//							System.out.println(" ");
+//							break;
 //						}
 //						
 //						case "B": {
@@ -187,12 +197,14 @@ public class TemporaryMenu {
 //					break;
 //				} else {
 //					System.out.println("You are a Finance Manager");
-//					
+//					System.out.println("What do you want to do? Please select the CAPITAL LETTER of your choice.");
+//					System.out.println("A -> Submit a Reimbursement Request");
+//					System.out.println("B -> Approve/Deny Reimbursement Requests");
 //					break;
-//				}
+//				} 
 //				
 //			}
-			
+//			
 			case "F": {
 				System.out.println(" ");
 				System.out.println("Have a great day! Goodbye.");

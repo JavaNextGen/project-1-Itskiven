@@ -13,7 +13,7 @@ public class Driver {
 
     public static void main(String[] args) {
     	
-    	UserController uc = new UserController();
+//    	UserController uc = new UserController();
     	
     	//Testing Database Connectivity
     	try(Connection connect = ConnectionFactory.getConnection()){
@@ -29,14 +29,14 @@ public class Driver {
     	
     	
     	
-    	Javalin app = Javalin.create(
-				config -> {
-					config.enableCorsForAllOrigins(); // allows the server to process JS requests from anywhere
-				}
-			).start(3000);
-	
-    	app.get("/user", uc.getUsersHandler);
-		app.post("/user", uc.createUserHandler);
+//    	Javalin app = Javalin.create(
+//				config -> {
+//					config.enableCorsForAllOrigins(); // allows the server to process JS requests from anywhere
+//				}
+//			).start(3000);
+//	
+//    	app.get("/user", uc.getUsersHandler);
+//		app.post("/user", uc.createUserHandler);
     	
     	
     } //end of main method
