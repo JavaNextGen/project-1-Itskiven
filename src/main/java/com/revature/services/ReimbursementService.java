@@ -43,8 +43,10 @@ public class ReimbursementService {
      * The Resolver should be null. Additional fields may be null.
      * After processing, the reimbursement will have its status changed to either APPROVED or DENIED.
      */
-    public Reimbursement process(Reimbursement unprocessedReimbursement, Status finalStatus, User resolver) {
-        return null;
+    public Reimbursement process(Reimbursement unprocessedReimbursement) {
+    	Reimbursement reimbursement = rDAO.process(unprocessedReimbursement);
+		
+		return reimbursement;
     }
 
     /**
@@ -72,4 +74,28 @@ public class ReimbursementService {
     public void submitReimbursement (Reimbursement reimbursementToBeSubmitted) {
     	rDAO.submit(reimbursementToBeSubmitted);
     }
+
+	public Reimbursement update(Reimbursement unprocessedReimbursement) {
+		
+		Reimbursement reimbursement = rDAO.update(unprocessedReimbursement);
+		
+		return reimbursement;
+		
+	}
+	
+	
+	public int getIntAuthor(int reimb_id) {
+		return rDAO.getIntAuthor(reimb_id);
+	}
+
+	public String getCurrentStatus(int id) {
+		return rDAO.getCurrentStatus(id);
+	}
+
+	public List<Reimbursement> getResolvedReimbursement(String username, String password) {
+		List<Reimbursement> reimbursement = rDAO.getResolvedReimbursements(username, password);
+     	return reimbursement;
+	}
+	
+	
 }

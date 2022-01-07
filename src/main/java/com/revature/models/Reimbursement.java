@@ -20,6 +20,7 @@ import java.time.LocalTime;
 public class Reimbursement extends AbstractReimbursement {
 	
 	private ReimbursementType typee;
+	private int id2;
 
 	
 	
@@ -46,11 +47,35 @@ public class Reimbursement extends AbstractReimbursement {
         this.typee = typee;
     }
 
+
+	public Reimbursement(int id, double amount, ReimbursementType typee) {
+		super(id, amount);
+        this.typee = typee;
+	}
+
+	public Reimbursement(int id, double amount, ReimbursementType typee, int id2) {
+		super(id, amount);
+        this.typee = typee;
+        this.setId2(id2);
+	}
+
+	public Reimbursement(int id, Status status, int resolver) {
+		super (id, status, resolver);
+	}
+
 	public ReimbursementType getType() {
 		return typee;
 	}
 
 	public void setType(ReimbursementType type) {
 		this.typee = type;
+	}
+
+	public int getId2() {
+		return id2;
+	}
+
+	public void setId2(int id2) {
+		this.id2 = id2;
 	}
 }

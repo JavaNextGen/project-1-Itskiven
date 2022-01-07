@@ -145,6 +145,64 @@ public class ReimbursementDAO {
      * </ul>
      */
     public Reimbursement update(Reimbursement unprocessedReimbursement) {
+    	try (Connection connect = ConnectionFactory.getConnection()) {
+			
+			String sql = "UPDATE reimbursement SET amount = ?, typee = ? WHERE reimb_id = ?";
+			
+			PreparedStatement ps = connect.prepareStatement(sql);
+			//use the PreparedStatement objects' methods to insert values into the query's ?s
+			//the values will come from the Employee object we send in.
+			ps.setInt(3, unprocessedReimbursement.getId());
+			ps.setDouble(1, unprocessedReimbursement.getAmount()); //1 is the first ?, 2 is the second, etc.
+					
+			if (unprocessedReimbursement.getType().name().equalsIgnoreCase("lodging")) {
+				ps.setInt(2, 1);
+			} else if (unprocessedReimbursement.getType().name().equalsIgnoreCase("travel")) {
+				ps.setInt(2, 2);
+			} else if (unprocessedReimbursement.getType().name().equalsIgnoreCase("food")) {
+				ps.setInt(2, 3);
+			} else if (unprocessedReimbursement.getType().name().equalsIgnoreCase("other")) {
+				ps.setInt(2, 4);
+			} 
+			
+			
+							
+			//this executeUpdate() method actually sends and executes the SQL command we built
+			ps.executeUpdate(); //we use executeUpdate() for inserts, updates, and deletes. 
+			//we use executeQuery() for selects
+			
+			//send confirmation to the console if successul.
+			String sql1 = "SELECT * FROM reimbursement INNER JOIN reimbursement_status ON status_id = status INNER JOIN reimbursement_type on type_id = typee WHERE reimb_id = ?";
+			PreparedStatement ps1 = connect.prepareStatement(sql1);
+			
+			
+			ps1.setInt(1, unprocessedReimbursement.getId());
+			
+			ResultSet rs = ps1.executeQuery();
+			
+			while(rs.next()) {
+				String a = rs.getString("currentstatus");
+				Status b = Status.valueOf(a);
+				String c = rs.getString("type");
+				ReimbursementType d = ReimbursementType.valueOf(c);
+			Reimbursement updatedPendingReimbursement = new Reimbursement(
+					rs.getInt("reimb_id"),
+					rs.getDouble("amount"),
+					rs.getInt("author"),
+					rs.getInt("resolver"),
+					b,
+					d 
+					);
+			
+			
+			System.out.println("Reimbursement Successfully Updated!");
+			
+			return updatedPendingReimbursement;
+			}
+		} catch (SQLException e) {
+			System.out.println("Updating Failed!");
+			e.printStackTrace();
+		}
     	return null;
     }
 
@@ -248,6 +306,189 @@ public class ReimbursementDAO {
 	    	
 	    	return null; //we add this after the try/catch block, so Java won't yell
 	    	//(Since there's no guarantee that the try will run)
+	    }
+	 
+	 public int getIntAuthor(int reimb_id) {
+			try(Connection connect = ConnectionFactory.getConnection()) {
+				
+				ResultSet rs = null;
+				
+				String sql = "SELECT author FROM reimbursement WHERE reimb_id = ?";
+				
+				//when we need parameters we need to use a PREPARED Statement, as opposed to a Statement (seen above)
+				PreparedStatement ps = connect.prepareStatement(sql); //prepareStatment() as opposed to createStatment()
+				
+				//insert the methods argument (int id) as the first (and only) variable in our SQL query
+				ps.setInt(1, reimb_id); //the 1 here is referring to the first parameter (?) found in our SQL String
+				
+				rs = ps.executeQuery();
+				
+				//create an empty List to be filled with the data from the database
+				int resultuser = 0;
+				
+		//we technically don't need this while loop since we're only getting one result back... see if you can refactor :)
+				while(rs.next()) { //while there are results in the result set...
+					
+					int r = rs.getInt("author");
+				
+				//and populate the ArrayList with each new Employee object
+				resultuser = r; //e is the new Employee object we created above
+				}
+				
+				//when there are no more results in the ResultSet the while loop will break...
+				//return the populated List of Employees
+				return resultuser;
+				
+			} catch (SQLException e) {
+				System.out.println("Something went wrong with the database!"); 
+				e.printStackTrace();
+			}
+			return (Integer) null;
+		}
+
+	public Reimbursement process(Reimbursement unprocessedReimbursement) {
+		try (Connection connect = ConnectionFactory.getConnection()) {
+			
+			String sql = "UPDATE reimbursement SET resolver = ?, status = ? WHERE reimb_id = ?";
+			
+			PreparedStatement ps = connect.prepareStatement(sql);
+			//use the PreparedStatement objects' methods to insert values into the query's ?s
+			//the values will come from the Employee object we send in.
+			ps.setInt(3, unprocessedReimbursement.getId());
+			ps.setInt(1, unprocessedReimbursement.getResolver()); //1 is the first ?, 2 is the second, etc.
+					
+			if (unprocessedReimbursement.getStatus().name().equalsIgnoreCase("pending")) {
+				ps.setInt(2, 1);
+			} else if (unprocessedReimbursement.getStatus().name().equalsIgnoreCase("approved")) {
+				ps.setInt(2, 2);
+			} else if (unprocessedReimbursement.getStatus().name().equalsIgnoreCase("denied")) {
+				ps.setInt(2, 3);
+			} 
+			
+			
+							
+			//this executeUpdate() method actually sends and executes the SQL command we built
+			ps.executeUpdate(); //we use executeUpdate() for inserts, updates, and deletes. 
+			//we use executeQuery() for selects
+			
+			//send confirmation to the console if successul.
+			String sql1 = "SELECT * FROM reimbursement INNER JOIN reimbursement_status ON status_id = status INNER JOIN reimbursement_type on type_id = typee WHERE reimb_id = ?";
+			PreparedStatement ps1 = connect.prepareStatement(sql1);
+			
+			
+			ps1.setInt(1, unprocessedReimbursement.getId());
+			
+			ResultSet rs = ps1.executeQuery();
+			
+			while(rs.next()) {
+				String a = rs.getString("currentstatus");
+				Status b = Status.valueOf(a);
+				String c = rs.getString("type");
+				ReimbursementType d = ReimbursementType.valueOf(c);
+			Reimbursement resolvedReimbursement = new Reimbursement(
+					rs.getInt("reimb_id"),
+					rs.getDouble("amount"),
+					rs.getInt("author"),
+					rs.getInt("resolver"),
+					b,
+					d 
+					);
+			
+			
+			System.out.println("Reimbursement Successfully Resolved!");
+			
+			return resolvedReimbursement;
+			}
+		} catch (SQLException e) {
+			System.out.println("Updating Failed!");
+			e.printStackTrace();
+		}
+    	return null;
+	}
+
+	public String getCurrentStatus(int id) {
+		try(Connection connect = ConnectionFactory.getConnection()) {
+			
+			ResultSet rs = null;
+			
+			String sql = "SELECT currentstatus FROM reimbursement INNER JOIN reimbursement_status ON status_id = status WHERE reimb_id = ?";
+			
+			//when we need parameters we need to use a PREPARED Statement, as opposed to a Statement (seen above)
+			PreparedStatement ps = connect.prepareStatement(sql); //prepareStatment() as opposed to createStatment()
+			
+			//insert the methods argument (int id) as the first (and only) variable in our SQL query
+			ps.setInt(1, id); //the 1 here is referring to the first parameter (?) found in our SQL String
+			
+			rs = ps.executeQuery();
+			
+			//create an empty List to be filled with the data from the database
+			String resultuser = null;
+			
+	//we technically don't need this while loop since we're only getting one result back... see if you can refactor :)
+			while(rs.next()) { //while there are results in the result set...
+				
+				String r = rs.getString("currentstatus");
+			
+			//and populate the ArrayList with each new Employee object
+			resultuser = r; //e is the new Employee object we created above
+			}
+			
+			//when there are no more results in the ResultSet the while loop will break...
+			//return the populated List of Employees
+			return resultuser;
+			
+		} catch (SQLException e) {
+			System.out.println("Something went wrong with the database!"); 
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	 public List<Reimbursement> getResolvedReimbursements (String username, String password) {
+		 try (Connection connect = ConnectionFactory.getConnection()) {
+	    		
+	    		ResultSet rs = null;
+	    		
+	    		String sql = "SELECT * FROM reimbursement INNER JOIN ers_users ON user_id = author INNER JOIN reimbursement_status ON status_id = status INNER JOIN reimbursement_type on type_id = typee WHERE (username = ? AND password = ? AND currentstatus = 'APPROVED') OR (username = ? AND password = ? AND currentstatus = 'DENIED');";
+	    		
+	    		PreparedStatement ps = connect.prepareStatement(sql);
+	    		
+	    		ps.setString(1, username);
+	    		ps.setString(2, password);
+	    		ps.setString(3, username);
+	    		ps.setString(4, password);
+	    		
+	    		rs = ps.executeQuery();
+	    		
+	    		List<Reimbursement> reimbursementList = new ArrayList<>();
+	    		
+	    		
+	    		while (rs.next()) {
+	    			
+	    			String a = rs.getString("currentstatus");
+	    			Status b = Status.valueOf(a);
+	    			String c = rs.getString("type");
+	    			ReimbursementType d = ReimbursementType.valueOf(c);
+	    			
+	    			Reimbursement r = new Reimbursement(
+	    					rs.getInt("reimb_id"),
+	    					rs.getDouble("amount"),
+	    					rs.getInt("author"),
+	    					rs.getInt("resolver"),
+	    					b,
+	    					d 
+	    					);
+	    			
+	    			reimbursementList.add(r);
+	    			
+	    		} 
+	    		
+	    		return reimbursementList;
+	    	}  catch (SQLException e) {
+	    		System.out.println("Something Went Wrong Obtaining Your List!");
+	    		e.printStackTrace();
+	    	}
+	    	return null;
 	    }
 
 }

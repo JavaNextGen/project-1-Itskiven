@@ -55,7 +55,18 @@ public class AbstractReimbursement {
         this.amount = amount;
     }
 
-    public int getId() {
+  	public AbstractReimbursement(int id, double amount) {
+  		this.id = id;
+  		this.amount = amount;
+	}
+
+	public AbstractReimbursement(int id, Status status, int resolver) {
+		 	this.id = id;
+	        this.status = status;
+	        this.resolver = resolver;
+	}
+
+	public int getId() {
         return id;
     }
 
