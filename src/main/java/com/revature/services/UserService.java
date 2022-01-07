@@ -33,7 +33,7 @@ public class UserService {
 		
 			if(uDAO.getByUsername(username).isPresent()) {
 			System.out.println("Username Exists!");
-			uDAO.getByUsername(username).get();
+//			uDAO.getByUsername(username).get();
 			return uDAO.getByUsername(username);
 		
 	} else {

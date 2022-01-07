@@ -158,7 +158,6 @@ public class TemporaryMenu {
 				
 				String users = uService.getUserRole(username, password);
 				int author = uService.getAuthor(username, password);
-				int resolver = 0;
 				Status status = Status.PENDING;
 				
 				if (users.equalsIgnoreCase("employee")) {
@@ -166,9 +165,10 @@ public class TemporaryMenu {
 					boolean reimbursement = true;
 					while (reimbursement) {
 						System.out.println("What do you want to do? Please select the CAPITAL LETTER of your choice.");
-						System.out.println("A -> Submit a Reimbursement Request");
-						System.out.println("B -> View Reimbursement Statuses");
-						
+						System.out.println("A -> Submit a Reimbursement Request"); //done
+						System.out.println("B -> View Pending Reimbursement Requests"); //done
+						System.out.println("C -> View Resolved Reimbursement Requests");
+						System.out.println("D -> Logout"); //done
 						
 						String input1 = scan.nextLine();
 						
@@ -212,7 +212,7 @@ public class TemporaryMenu {
 						
 						case "B": {
 							//get the List of employees from the repository layer
-							List<Reimbursement> reimbursements = rService.getReimbursementsByStatus(status);
+							List<Reimbursement> reimbursements = rService.getOwnReimbursement(username, password);
 							
 							//enhanced for loop to print out all users one by one
 							for (Reimbursement r : reimbursements) {
@@ -222,19 +222,127 @@ public class TemporaryMenu {
 							System.out.println(" ");
 							break;
 						}
+						
+						case "C": {
+//							reimbursement = false;
+//							System.out.println(" ");
+							break;
 						}
+							
+						case "D": {
+							reimbursement = false;
+							System.out.println(" ");
+							break;
+						
+							}
+						default: {
+							System.out.println(" ");
+							System.out.println("Invalid Letter -> TRY AGAIN");
+							break;
+						}
+						}
+						
 						
 						
 					}
 					break;
+					
 				} else {
 					System.out.println("You are a Finance Manager");
+					boolean reimbursement = true;
+					while (reimbursement) {
 					System.out.println("What do you want to do? Please select the CAPITAL LETTER of your choice.");
-					System.out.println("A -> Submit a Reimbursement Request");
+					System.out.println("A -> Submit a Reimbursement Request"); //done
 					System.out.println("B -> Approve/Deny Reimbursement Requests");
-					break;
+					System.out.println("C -> View All Pending Reimbursement Requests"); //done
+					System.out.println("D -> View All Resolved Reimbursement Requests"); //FILTER BY STATUS
+					System.out.println("E -> View Own Reimbursement Status"); //done
+					System.out.println("F -> Logout"); //done
+					
+					String input1 = scan.nextLine();
+					
+					
+					switch(input1) {
+					
+					case "A": {
+						System.out.println("How Much?");
+						
+						double amount = scan.nextDouble();
+						scan.nextLine();
+						
+						System.out.println("Enter Reimbursement Type:");
+						System.out.println("1 -> Lodging");
+						System.out.println("2 -> Travel");
+						System.out.println("3 -> Food");
+						System.out.println("4 -> Other");
+						
+						int r = scan.nextInt();
+						scan.nextLine();
+						ReimbursementType typee;
+						
+						if (r == 1) {
+							typee = ReimbursementType.LODGING;
+						} else if (r == 2) {
+							typee = ReimbursementType.TRAVEL;
+						} else if (r == 3) {
+							typee = ReimbursementType.FOOD;
+						} else if (r == 4) {
+							typee = ReimbursementType.OTHER;
+						} else {
+							System.out.println("Unsuccessful Submission! Try Again.");
+							break;
+						}
+						
+						Reimbursement reimbursementToBeSubmitted = new Reimbursement(amount, author, status, typee);
+						rService.submitReimbursement(reimbursementToBeSubmitted);
+						System.out.println(" ");
+						break;
+					}
+					case "B": {
+						break;
+					}
+					case "C": {
+						//get the List of employees from the repository layer
+						List<Reimbursement> reimbursements = rService.getPendingReimbursements();
+						
+						//enhanced for loop to print out all users one by one
+						for (Reimbursement r : reimbursements) {
+							System.out.println(r);
+							
+						}
+						System.out.println(" ");
+						break;
+					}
+					case "D": {
+						
+						break;
+					}
+					case "E": {
+						//get the List of employees from the repository layer
+						List<Reimbursement> reimbursements = rService.getOwnReimbursement(username, password);
+						
+						//enhanced for loop to print out all users one by one
+						for (Reimbursement r : reimbursements) {
+							System.out.println(r);
+							
+						}
+						System.out.println(" ");
+						break;
+					}
+					case "F": {
+						reimbursement = false;
+						System.out.println(" ");
+						break;
+					}
+					default: {
+						System.out.println(" ");
+						System.out.println("Invalid Letter -> TRY AGAIN");
+						break;
+					}
+					}
 				} 
-			
+					break;
+				}
 			}
 			
 			case "F": {

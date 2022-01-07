@@ -50,8 +50,20 @@ public class ReimbursementService {
     /**
      * Should retrieve all reimbursements with the correct status.
      */
-    public List<Reimbursement> getReimbursementsByStatus(Status status) {
-       List<Reimbursement> reimbursement = rDAO.getByStatus(status);
+    
+    //FILTER BY STATUS
+//    public List<Reimbursement> getReimbursementsByStatus(Status status) {
+//       List<Reimbursement> reimbursement = rDAO.getByStatus(status);
+//    	return reimbursement;
+//    }
+    
+    public List<Reimbursement> getPendingReimbursements() {
+        List<Reimbursement> reimbursement = rDAO.getPendingReimbursements();
+     	return reimbursement;
+     }
+    
+    public List<Reimbursement> getOwnReimbursement(String username, String password) {
+    	List<Reimbursement> reimbursement = rDAO.getOwnReimbursement(username, password);
     	return reimbursement;
     }
     
