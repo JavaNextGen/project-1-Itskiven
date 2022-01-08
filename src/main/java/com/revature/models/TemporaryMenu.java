@@ -219,8 +219,12 @@ public class TemporaryMenu {
 							int id = scan.nextInt();
 							scan.nextLine();
 							
+							Optional<Reimbursement> reimbursement0 = rService.getById(id);
+							
+							
 							int verification = rService.getIntAuthor(id);
 							String stat = rService.getCurrentStatus(id);
+							
 							if (verification == author && stat.equalsIgnoreCase("pending")) {
 								System.out.println("How Much is the Amount?");
 								
@@ -265,6 +269,10 @@ public class TemporaryMenu {
 								System.out.println(" ");
 							} else if (verification == author && !stat.equalsIgnoreCase("pending")) {
 								System.out.println("Reimbursement Already Resolved!");
+							} else if (reimbursement0.equals(Optional.empty())){
+								System.out.println("Sorry");
+								System.out.println("");
+								break;
 							} else {
 								System.out.println("You are not the Owner of this Reimbursement Request!");
 								System.out.println("");
@@ -376,11 +384,21 @@ public class TemporaryMenu {
 						int id = scan.nextInt();
 						scan.nextLine();
 						
+						Optional<Reimbursement> reimbursement0 = rService.getById(id);
+						System.out.println(reimbursement0);
+						
 						int verification = rService.getIntAuthor(id);
-						int resolver = author;
 						String stat = rService.getCurrentStatus(id);
-						if (verification == author) {
+						int resolver = author;
+						
+						if (verification == author && !stat.equalsIgnoreCase("pending")) {
+							System.out.println("You can't Process Self Request And it is already Resolved.");
+						} else if (verification == author) {
 							System.out.println("You can't Process Self Request!");
+						} else if (reimbursement0.equals(Optional.empty())){
+							System.out.println("Sorry");
+							System.out.println("");
+							break;
 						} else if (verification != author && stat.equalsIgnoreCase("pending")) {
 							System.out.println("Final Decision?");
 							System.out.println("1 -> Approve");
@@ -401,10 +419,8 @@ public class TemporaryMenu {
 							System.out.println(processedReimbursement);
 							System.out.println("");
 						} else if (verification != author && !stat.equalsIgnoreCase("pending")) {
-							System.out.println("Reimbursement ID Doesn't Exist!");
-						} else {
 							System.out.println("Reimbursement ID Already Resolved!");
-						}
+						} 
 						
 						break;
 					}

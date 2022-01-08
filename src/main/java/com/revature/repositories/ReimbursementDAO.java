@@ -25,7 +25,53 @@ public class ReimbursementDAO {
      * Should retrieve a Reimbursement from the DB with the corresponding id or an empty optional if there is no match.
      */
     public Optional<Reimbursement> getById(int id) {
-        return Optional.empty();
+try(Connection connect = ConnectionFactory.getConnection()) {
+			
+			ResultSet rs = null;
+			
+			String sql = "SELECT * FROM reimbursement INNER JOIN ers_users ON user_id = author INNER JOIN reimbursement_status ON status_id = status INNER JOIN reimbursement_type on type_id = typee where reimb_id = ?";
+			
+			//when we need parameters we need to use a PREPARED Statement, as opposed to a Statement (seen above)
+			PreparedStatement ps = connect.prepareStatement(sql); //prepareStatment() as opposed to createStatment()
+			
+			//insert the methods argument (int id) as the first (and only) variable in our SQL query
+			ps.setInt(1, id); //the 1 here is referring to the first parameter (?) found in our SQL String
+			
+			rs = ps.executeQuery();
+			
+			//create an empty List to be filled with the data from the database
+			Optional<Reimbursement> resultreimbursement = Optional.empty();
+			
+	//we technically don't need this while loop since we're only getting one result back... see if you can refactor :)
+			while(rs.next()) { //while there are results in the result set...
+				
+				String a = rs.getString("currentstatus");
+    			Status b = Status.valueOf(a);
+    			String c = rs.getString("type");
+    			ReimbursementType d = ReimbursementType.valueOf(c);
+    			
+    			Reimbursement r = new Reimbursement(
+    					rs.getInt("reimb_id"),
+    					rs.getDouble("amount"),
+    					rs.getInt("author"),
+    					rs.getInt("resolver"),
+    					b,
+    					d 
+    					);
+			
+			//and populate the ArrayList with each new Employee object
+			resultreimbursement = Optional.ofNullable(r); //e is the new Employee object we created above
+			}
+			
+			//when there are no more results in the ResultSet the while loop will break...
+			//return the populated List of Employees
+			return resultreimbursement;
+			
+		} catch (SQLException e) {
+			System.out.println("Something went wrong with the database!"); 
+			e.printStackTrace();
+		}
+		return null;
     }
 
     

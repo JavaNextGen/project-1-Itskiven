@@ -31,19 +31,21 @@ public class UserService {
 	
 	public Optional<User> getByUsername(String username) {
 		
-//			if(uDAO.getByUsername(username).isPresent()) {
-//			System.out.println("Username Exists!");
-//			uDAO.getByUsername(username).get();
-//			return uDAO.getByUsername(username);
-//		
-//	} else {
-//		System.out.println("Username Does Not Exists!");
-//		return Optional.ofNullable(null);                               
-//	}
-		Optional<User> users = uDAO.getByUsername(username);
+		Optional<User> user = uDAO.getByUsername(username);
 		
-		//returns list of users
-		return users;
+			if(user.isPresent()) {
+			System.out.println("Username Exists!");
+//			uDAO.getByUsername(username).get();
+			return user;
+		
+	} else {
+		System.out.println("Username Does Not Exists!");
+		return user;                               
+	}
+//		Optional<User> users = uDAO.getByUsername(username);
+//		
+//		//returns list of users
+//		return users;
 		
 	}
 	

@@ -7,6 +7,7 @@ import com.revature.repositories.ReimbursementDAO;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The ReimbursementService should handle the submission, processing,
@@ -96,5 +97,25 @@ public class ReimbursementService {
 	public String getCurrentStatus(int id) {
 		return rDAO.getCurrentStatus(id);
 	}
+	
+	public Optional<Reimbursement> getById(int id) {
+		
+		Optional<Reimbursement> ID = rDAO.getById(id);
+		
+		if(ID.isPresent()) {
+			System.out.println("ID Exists!");
+//			uDAO.getByUsername(username).get();
+			return ID;
+		
+	} else {
+		System.out.println("ID Does Not Exist!");
+		return ID;         
+		
+	}
+//		Optional<Reimbursement> reimbursementId = rDAO.getById(id);
+//		
+//		//returns list of users
+//		return reimbursementId;
+    }
 
 }
