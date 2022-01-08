@@ -326,8 +326,8 @@ public class TemporaryMenu {
 					System.out.println("A -> Submit a Reimbursement Request"); //done
 					System.out.println("B -> Approve/Deny Reimbursement Requests"); //done
 					System.out.println("C -> View All Pending Reimbursement Requests"); //done
-					System.out.println("D -> View All Resolved Reimbursement Requests"); //FILTER BY STATUS
-					System.out.println("E -> View Own Reimbursement Status"); //done
+					System.out.println("D -> View All Reimbursement Requests"); //done
+					System.out.println("E -> View Own Pending Reimbursements"); //done
 					System.out.println("F -> Logout"); //done
 					
 					String input1 = scan.nextLine();
@@ -371,28 +371,21 @@ public class TemporaryMenu {
 						break;
 					}
 					case "B": {
-						//get the List of employees from the repository layer
-						List<Reimbursement> reimbursements = rService.getPendingReimbursements();
-						
-						//enhanced for loop to print out all users one by one
-						for (Reimbursement r : reimbursements) {
-							System.out.println(r);
-							
-						}
-						System.out.println(" ");
-						
+
 						System.out.println("Give Reimbursement ID you want to process");
 						int id = scan.nextInt();
 						scan.nextLine();
 						
 						int verification = rService.getIntAuthor(id);
 						int resolver = author;
+						String stat = rService.getCurrentStatus(id);
 						if (verification == author) {
 							System.out.println("You can't Process Self Request!");
-						} else {
+						} else if (verification != author && stat.equalsIgnoreCase("pending")) {
 							System.out.println("Final Decision?");
 							System.out.println("1 -> Approve");
 							System.out.println("2 -> Deny");
+							
 							
 							Status status = null;
 							int r = scan.nextInt();
@@ -407,7 +400,11 @@ public class TemporaryMenu {
 							Reimbursement processedReimbursement = rService.process(reimbursementToBeProcessed);
 							System.out.println(processedReimbursement);
 							System.out.println("");
-						}	
+						} else if (verification != author && !stat.equalsIgnoreCase("pending")) {
+							System.out.println("Reimbursement ID Doesn't Exist!");
+						} else {
+							System.out.println("Reimbursement ID Already Resolved!");
+						}
 						
 						break;
 					}
@@ -425,7 +422,15 @@ public class TemporaryMenu {
 					}
 					case "D": {
 						
+						List<Reimbursement> reimbursements = rService.getReimbursementsByStatus();
+						
+						//enhanced for loop to print out all users one by one
+						for (Reimbursement r : reimbursements) {
+							System.out.println(r);
+						}
+						System.out.println(" ");
 						break;
+					
 					}
 					case "E": {
 						//get the List of employees from the repository layer

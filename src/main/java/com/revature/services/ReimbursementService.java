@@ -43,21 +43,27 @@ public class ReimbursementService {
      * The Resolver should be null. Additional fields may be null.
      * After processing, the reimbursement will have its status changed to either APPROVED or DENIED.
      */
+//    public Reimbursement process(Reimbursement unprocessedReimbursement, Status finalStatus, User resolver) {
+//    	Reimbursement reimbursement = rDAO.process(unprocessedReimbursement, finalStatus, resolver);
+//		
+//		return reimbursement;
+//    }
+
     public Reimbursement process(Reimbursement unprocessedReimbursement) {
     	Reimbursement reimbursement = rDAO.process(unprocessedReimbursement);
 		
 		return reimbursement;
     }
-
+    
     /**
      * Should retrieve all reimbursements with the correct status.
      */
     
-    //FILTER BY STATUS
-//    public List<Reimbursement> getReimbursementsByStatus(Status status) {
-//       List<Reimbursement> reimbursement = rDAO.getByStatus(status);
-//    	return reimbursement;
-//    }
+    
+    public List<Reimbursement> getReimbursementsByStatus() {
+       List<Reimbursement> reimbursement = rDAO.getByStatus();
+    	return reimbursement;
+    }
     
     public List<Reimbursement> getPendingReimbursements() {
         List<Reimbursement> reimbursement = rDAO.getPendingReimbursements();
@@ -69,20 +75,19 @@ public class ReimbursementService {
     	return reimbursement;
     }
     
-
+	public List<Reimbursement> getResolvedReimbursement(String username, String password) {
+		List<Reimbursement> reimbursement = rDAO.getResolvedReimbursements(username, password);
+     	return reimbursement;
+	}
     
     public void submitReimbursement (Reimbursement reimbursementToBeSubmitted) {
     	rDAO.submit(reimbursementToBeSubmitted);
     }
 
 	public Reimbursement update(Reimbursement unprocessedReimbursement) {
-		
 		Reimbursement reimbursement = rDAO.update(unprocessedReimbursement);
-		
 		return reimbursement;
-		
 	}
-	
 	
 	public int getIntAuthor(int reimb_id) {
 		return rDAO.getIntAuthor(reimb_id);
@@ -92,10 +97,4 @@ public class ReimbursementService {
 		return rDAO.getCurrentStatus(id);
 	}
 
-	public List<Reimbursement> getResolvedReimbursement(String username, String password) {
-		List<Reimbursement> reimbursement = rDAO.getResolvedReimbursements(username, password);
-     	return reimbursement;
-	}
-	
-	
 }

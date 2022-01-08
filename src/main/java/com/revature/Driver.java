@@ -3,6 +3,7 @@ package com.revature;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import com.revature.controllers.AuthController;
 import com.revature.controllers.UserController;
 import com.revature.models.TemporaryMenu;
 import com.revature.util.ConnectionFactory;
@@ -13,7 +14,8 @@ public class Driver {
 
     public static void main(String[] args) {
     	
-//    	UserController uc = new UserController();
+    	UserController uc = new UserController();
+    	AuthController ac = new AuthController();
     	
     	//Testing Database Connectivity
     	try(Connection connect = ConnectionFactory.getConnection()){
@@ -37,6 +39,7 @@ public class Driver {
 //	
 //    	app.get("/user", uc.getUsersHandler);
 //		app.post("/user", uc.createUserHandler);
+//    	app.post("/login", ac.loginUserHandler);
     	
     	
     } //end of main method

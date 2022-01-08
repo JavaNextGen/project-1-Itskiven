@@ -56,7 +56,7 @@ try(Connection connect = ConnectionFactory.getConnection()) {
 					);
 			
 			//and populate the ArrayList with each new Employee object
-			resultuser = Optional.of(e); //e is the new Employee object we created above
+			resultuser = Optional.ofNullable(e); //e is the new Employee object we created above
 			}
 			
 			//when there are no more results in the ResultSet the while loop will break...

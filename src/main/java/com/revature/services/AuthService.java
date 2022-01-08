@@ -95,4 +95,32 @@ public class AuthService {
     }
     
     
+    //BEN ================================================ BEN
+    
+    
+    //figure not to hardcode username/password
+    
+    //Typically, you'll want to validate username/password against some username/password in the DATABASE.
+    //In P1, you'd be sending the data sent into the LoginDTO...
+    //and most likely doing some DAO method that uses those values to check for matching values in the DB.
+    //soooooo we need a DAO method that has:
+    //"SELECT * FROM ers_users WHERE username = ? nad password = ?" and then insert the values of the DTO for parameters
+    
+    
+    
+//    public boolean login1(String username, String password) {
+//    	
+//    	this is hardcoding -- telling Java exactly what values make for a valid login
+//    	in reality, you'll check the database for a username/password to see if a record exists
+//    	if (username.equals("user") && password.equals("password")) {
+//    		return true; //true indicates successful login
+//    	}
+//    	
+//    	return false; //unsuccessful login
+//    	
+//    }
+    
+    
+    
+    
 }

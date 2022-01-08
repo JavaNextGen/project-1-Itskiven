@@ -28,9 +28,6 @@ public class ReimbursementDAO {
         return Optional.empty();
     }
 
-    /**
-     * Should retrieve a List of Reimbursements from the DB with the corresponding Status or an empty List if there are no matches.
-     */
     
     public List<Reimbursement> getOwnReimbursement (String username, String password) {
     	
@@ -78,64 +75,67 @@ public class ReimbursementDAO {
     	return null;
     }
     
-    //ALL RESOLVED REIMBURSEMENTS BY STATUS
-//    public List<Reimbursement> getByStatus(Status status) {
-//    	try (Connection connect = ConnectionFactory.getConnection()){
-//    		
-//    		//Initialize an empty ResultSet object that will store the results of our SQL query
-//    		ResultSet rs = null;
-//    
-//    		//Write the query that we want to send to the database and assign it to a String
-//    		String sql = "SELECT * FROM reimbursement INNER JOIN ers_users ON user_id = author INNER JOIN reimbursement_status ON status_id = status INNER JOIN reimbursement_type on type_id = typee;"
-//    				;
-//    		
-//    		//Put the SQL query into a Statement object (The Connection object has a method for this!! implicit?)
-//    		Statement statement = connect.createStatement();
-//    		
-//    		//Execute the Query by putting the results of the query into our ResultSet object (rs)
-//    		//The Statement object has a method that takes Strings to execute as a SQL query
-//    		rs = statement.executeQuery(sql);
-//    		
-//    		//ALL THE CODE ABOVE MAKES A CALL TO OUR DATABASE. Now we need to store the data in an ArrayList.
-//    		
-//    		//create an empty ArrayList to be filled with the data from the database
-//    		List<Reimbursement> reimbursementList = new ArrayList<>(); //Upcasting, we are instantiating an ArrayList
-//    		
-//    		
-//    		//while there are results in the resultset
-//    		while(rs.next()) {	
-//    			
-//    			String a = rs.getString("currentstatus");
-//    			Status b = Status.valueOf(a);
-//    			String c = rs.getString("type");
-//    			ReimbursementType d = ReimbursementType.valueOf(c);
-//    			
-//    			//Use the all args constructor to create a new User object from each returned row from the DB
-//    			Reimbursement r = new Reimbursement(
-//    				//we want to use rs.get for each column in the record
-//    					rs.getInt("reimb_id"),
-//    					rs.getDouble("amount"),
-//    					rs.getInt("author"),
-//    					rs.getInt("resolver"),
-//    					b,
-//    					d
-//    					);
-//    			//and populate the ArrayList with each new Employee object
-//    			reimbursementList.add(r); //e is the new User object we created above
-//    		}
-//    		
-//    		//when there are no more results in rs, the while loop will break
-//    		//then, return the populated ArrayList of Users
-//    		return reimbursementList;
-//    		
-//    	} catch (SQLException e) {
-//    		System.out.println("Something went wrong obtaining the reimbursements!");
-//    		e.printStackTrace();
-//    	}
-//    	
-//    	return null; //we add this after the try/catch block, so Java won't yell
-//    	//(Since there's no guarantee that the try will run)
-//    }
+    
+    /**
+     * Should retrieve a List of Reimbursements from the DB with the corresponding Status or an empty List if there are no matches.
+     */
+    
+      public List<Reimbursement> getByStatus() {
+    	try (Connection connect = ConnectionFactory.getConnection()){
+    		
+    		//Initialize an empty ResultSet object that will store the results of our SQL query
+    		ResultSet rs = null;
+    
+    		//Write the query that we want to send to the database and assign it to a String
+    		String sql = "SELECT * FROM reimbursement INNER JOIN reimbursement_status ON status_id = status INNER JOIN reimbursement_type on type_id = typee WHERE currentstatus IN ('PENDING', 'APPROVED', 'DENIED') ORDER BY CASE currentstatus WHEN 'PENDING' THEN 1 WHEN 'APPROVED' THEN 2 WHEN 'DENIED' THEN 3 END, reimb_id;";
+    		
+    		//Put the SQL query into a Statement object (The Connection object has a method for this!! implicit?)
+    		Statement statement = connect.createStatement();
+    		
+    		//Execute the Query by putting the results of the query into our ResultSet object (rs)
+    		//The Statement object has a method that takes Strings to execute as a SQL query
+    		rs = statement.executeQuery(sql);
+    		
+    		//ALL THE CODE ABOVE MAKES A CALL TO OUR DATABASE. Now we need to store the data in an ArrayList.
+    		
+    		//create an empty ArrayList to be filled with the data from the database
+    		List<Reimbursement> reimbursementList = new ArrayList<>(); //Upcasting, we are instantiating an ArrayList
+    		
+    		
+    		//while there are results in the resultset
+    		while(rs.next()) {	
+    			
+    			String a = rs.getString("currentstatus");
+    			Status b = Status.valueOf(a);
+    			String c = rs.getString("type");
+    			ReimbursementType d = ReimbursementType.valueOf(c);
+    			
+    			//Use the all args constructor to create a new User object from each returned row from the DB
+    			Reimbursement r = new Reimbursement(
+    				//we want to use rs.get for each column in the record
+    					rs.getInt("reimb_id"),
+    					rs.getDouble("amount"),
+    					rs.getInt("author"),
+    					rs.getInt("resolver"),
+    					b,
+    					d
+    					);
+    			//and populate the ArrayList with each new Employee object
+    			reimbursementList.add(r); //e is the new User object we created above
+    		}
+    		
+    		//when there are no more results in rs, the while loop will break
+    		//then, return the populated ArrayList of Users
+    		return reimbursementList;
+    		
+    	} catch (SQLException e) {
+    		System.out.println("Something went wrong obtaining the reimbursements!");
+    		e.printStackTrace();
+    	}
+    	
+    	return null; //we add this after the try/catch block, so Java won't yell
+    	//(Since there's no guarantee that the try will run)
+    }
 
     /**
      * <ul>
