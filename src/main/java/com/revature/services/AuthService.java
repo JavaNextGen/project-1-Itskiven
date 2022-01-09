@@ -2,6 +2,7 @@ package com.revature.services;
 
 import com.revature.exceptions.UsernameNotUniqueException;
 import com.revature.models.User;
+import com.revature.repositories.AuthDAO;
 import com.revature.repositories.UserDAO;
 
 import java.util.Optional;
@@ -21,6 +22,7 @@ import java.util.Optional;
 public class AuthService {
 	
 	UserDAO uDAO = new UserDAO();
+	AuthDAO aDAO = new AuthDAO();
 
     /**
      * <ul>
@@ -48,22 +50,30 @@ public class AuthService {
     			System.out.println("Username Does Not Exist!");
     			return Optional.empty();
     		}
-    			
-//    		if (password.equals(uDAO.getUserPass(username))) {
-//    				user = login;
-//    				System.out.println("Correct Password");
-//    				System.out.println("You have Successfully Logged In!");
-//    			} else {
-//    				System.out.println("Wrong Password!");
-//    			}
-    		
     	} catch (Exception e) {
-    		System.out.println("Wrong User-Pass combination");
+    		System.out.println("Logging In Unsuccessful");
     		e.printStackTrace();
     	}
 		return user;
     	
     }
+    
+    public boolean login1 (String username, String password) {
+    	
+    	boolean[] endresult = aDAO.login2(username, password);
+    	
+//    	System.out.println(endresult[0]);
+//    	System.out.println(endresult[1]);
+    	
+    	if (endresult[0] == true && endresult[1] == true) {
+    		System.out.println("SUCCESS");
+    		return true;
+    	}
+    	
+    	return false;
+    }
+    
+    
     
     public String getUserPass(String username) {
 		return uDAO.getUserPass(username);

@@ -1,6 +1,6 @@
 package com.revature.models;
 
-//Data Transfer Object. A DTO is juse a model of /some/ data coming from the client (front end)
+//Data Transfer Object. A DTO is just a model of /some/ data coming from the client (front end)
 //HTTP handler will parse a JSON object sent by the user, containing their username and password
 //this then gets sent to the controller to get turned into a Java object (using Gson)
 //The username and password will then be put into the DTO as fields (see fields below), which get checked by the service
@@ -46,15 +46,5 @@ public class LoginDTO {
 		this.password = password;
 	}
 
-	
-	//toString Just incase we want to print out the object (could be helpful for debugging)
-	@Override
-	public String toString() {
-		return "LoginDTO [username=" + username + ", password=" + password + "]";
-	}
-	
-	
-
-	
 	
 }

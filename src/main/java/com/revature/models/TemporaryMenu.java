@@ -153,7 +153,7 @@ public class TemporaryMenu {
 				System.out.println(" ");
 				
 				
-				//WHAT TO DO IF WRONG USERNAME AND PASSWORD INPUT!
+//				boolean log1 = aService.login1(username, password);
 				Optional<User> log = aService.login(username, password);	
 				System.out.println(log);
 				
