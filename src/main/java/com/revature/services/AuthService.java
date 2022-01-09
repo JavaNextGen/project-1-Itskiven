@@ -33,25 +33,36 @@ public class AuthService {
      */
     public Optional<User> login(String username, String password) {		
     	
-    	Optional<User> user = null;
+    	Optional<User> user = Optional.empty();
     	
     	try {
     		Optional<User> login = uDAO.getByUsername(username);
-    		if (login != null) {
-    			if (password.equals(uDAO.getUserPass(username))) {
-    				user = login;
-    				System.out.println("Successfully Login!");
-    				
-    			} else {
-    				System.out.println("Wrong User-Password Input! Try Again");
-    			}
-    		} 
+    		
+    		if (login.isPresent() && password.equals(uDAO.getUserPass(username))) {
+    			System.out.println("Logged In Successfully!");
+    			return login;
+    		} else if (login.isPresent() && !password.equals(uDAO.getUserPass(username))){
+    			System.out.println("Wrong Password");
+    			return Optional.empty();
+    		} else {
+    			System.out.println("Username Does Not Exist!");
+    			return Optional.empty();
+    		}
+    			
+//    		if (password.equals(uDAO.getUserPass(username))) {
+//    				user = login;
+//    				System.out.println("Correct Password");
+//    				System.out.println("You have Successfully Logged In!");
+//    			} else {
+//    				System.out.println("Wrong Password!");
+//    			}
+    		
     	} catch (Exception e) {
     		System.out.println("Wrong User-Pass combination");
     		e.printStackTrace();
     	}
+		return user;
     	
-    	return user;
     }
     
     public String getUserPass(String username) {

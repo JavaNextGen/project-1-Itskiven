@@ -26,20 +26,20 @@ public class Driver {
     	}
     	
     	//Instantiate a TemporaryMenu object and use its method
-    	TemporaryMenu menu = new TemporaryMenu();
-    	menu.menuOptions();
+//    	TemporaryMenu menu = new TemporaryMenu();
+//    	menu.menuOptions();
     	
     	
     	
-//    	Javalin app = Javalin.create(
-//				config -> {
-//					config.enableCorsForAllOrigins(); // allows the server to process JS requests from anywhere
-//				}
-//			).start(3000);
-//	
-//    	app.get("/user", uc.getUsersHandler);
-//		app.post("/user", uc.createUserHandler);
-//    	app.post("/login", ac.loginUserHandler);
+    	Javalin app = Javalin.create(
+				config -> {
+					config.enableCorsForAllOrigins(); // allows the server to process JS requests from anywhere
+				}
+			).start(3000);
+	
+    	app.get("/user", uc.getUsersHandler);
+		app.post("/user", uc.createUserHandler);
+    	app.post("/login", ac.loginUserHandler);
     	
     	
     } //end of main method

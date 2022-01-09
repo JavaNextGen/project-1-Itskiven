@@ -154,14 +154,18 @@ public class TemporaryMenu {
 				
 				
 				//WHAT TO DO IF WRONG USERNAME AND PASSWORD INPUT!
-				aService.login(username, password);		
+				Optional<User> log = aService.login(username, password);	
+				System.out.println(log);
 				
 				String users = uService.getUserRole(username, password);
 				int author = uService.getAuthor(username, password);
 				
 				
-				
-				if (users.equalsIgnoreCase("employee")) {
+				if (log.equals(Optional.empty())){
+						System.out.println("PLEASE TRY AGAIN");
+						break;
+					}
+				else if (users.equalsIgnoreCase("employee")) {
 					System.out.println("You are an Employee");
 					boolean reimbursement = true;
 					while (reimbursement) {
@@ -326,7 +330,7 @@ public class TemporaryMenu {
 					}
 					break;
 					
-				} else {
+				} else if (users.equalsIgnoreCase("finance_manager")){
 					System.out.println("You are a Finance Manager");
 					boolean reimbursement = true;
 					while (reimbursement) {

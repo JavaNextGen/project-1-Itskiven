@@ -66,14 +66,16 @@ public class UserService {
 	
 	public Optional<User> getUserById (int idInput) {
 		
-		if(uDAO.getUserById(idInput).isPresent()) {
+		Optional<User> ID = uDAO.getUserById(idInput);
+		
+		if(ID.isPresent()) {
 			System.out.println("ID Exists!");
-			uDAO.getUserById(idInput).get();
-			return uDAO.getUserById(idInput);
+//			uDAO.getUserById(idInput).get();
+			return ID;
 		
 	} else {
 		System.out.println("ID Does Not Exists!");
-		return null;
+		return ID;
 	}
 	}
 	
