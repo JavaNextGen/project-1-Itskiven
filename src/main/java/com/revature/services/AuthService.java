@@ -60,17 +60,9 @@ public class AuthService {
     
     public boolean login1 (String username, String password) {
     	
-    	boolean[] endresult = aDAO.login2(username, password);
-    	
-//    	System.out.println(endresult[0]);
-//    	System.out.println(endresult[1]);
-    	
-    	if (endresult[0] == true && endresult[1] == true) {
-    		System.out.println("SUCCESS");
-    		return true;
-    	}
-    	
-    	return false;
+    	boolean endresult = aDAO.login2(username, password);
+  
+    		return endresult;
     }
     
     

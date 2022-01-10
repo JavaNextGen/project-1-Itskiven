@@ -288,7 +288,7 @@ public class TemporaryMenu {
 						
 						case "C": {
 							//get the List of employees from the repository layer
-							List<Reimbursement> reimbursements = rService.getOwnReimbursement(username, password);
+							List<Reimbursement> reimbursements = rService.getOwnReimbursement(username);
 							
 							//enhanced for loop to print out all users one by one
 							for (Reimbursement r : reimbursements) {
@@ -301,7 +301,7 @@ public class TemporaryMenu {
 						
 						case "D": {
 //							//get the List of employees from the repository layer
-							List<Reimbursement> reimbursements = rService.getResolvedReimbursement(username, password);
+							List<Reimbursement> reimbursements = rService.getResolvedReimbursement(username);
 							
 							//enhanced for loop to print out all users one by one
 							for (Reimbursement r : reimbursements) {
@@ -454,7 +454,7 @@ public class TemporaryMenu {
 					}
 					case "E": {
 						//get the List of employees from the repository layer
-						List<Reimbursement> reimbursements = rService.getOwnReimbursement(username, password);
+						List<Reimbursement> reimbursements = rService.getOwnReimbursement(username);
 						
 						//enhanced for loop to print out all users one by one
 						for (Reimbursement r : reimbursements) {

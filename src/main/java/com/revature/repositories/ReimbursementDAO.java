@@ -75,18 +75,17 @@ try(Connection connect = ConnectionFactory.getConnection()) {
     }
 
     
-    public List<Reimbursement> getOwnReimbursement (String username, String password) {
+    public List<Reimbursement> getOwnReimbursement (String username) {
     	
     	try (Connection connect = ConnectionFactory.getConnection()) {
     		
     		ResultSet rs = null;
     		
-    		String sql = "SELECT * FROM reimbursement INNER JOIN ers_users ON user_id = author INNER JOIN reimbursement_status ON status_id = status INNER JOIN reimbursement_type on type_id = typee where username = ? AND password = ? AND currentstatus = 'PENDING';";
+    		String sql = "SELECT * FROM reimbursement INNER JOIN ers_users ON user_id = author INNER JOIN reimbursement_status ON status_id = status INNER JOIN reimbursement_type on type_id = typee where username = ? AND currentstatus = 'PENDING';";
     		
     		PreparedStatement ps = connect.prepareStatement(sql);
     		
     		ps.setString(1, username);
-    		ps.setString(2, password);
     		
     		rs = ps.executeQuery();
     		
@@ -490,19 +489,17 @@ try(Connection connect = ConnectionFactory.getConnection()) {
 		return null;
 	}
 	
-	 public List<Reimbursement> getResolvedReimbursements (String username, String password) {
+	 public List<Reimbursement> getResolvedReimbursements (String username) {
 		 try (Connection connect = ConnectionFactory.getConnection()) {
 	    		
 	    		ResultSet rs = null;
 	    		
-	    		String sql = "SELECT * FROM reimbursement INNER JOIN ers_users ON user_id = author INNER JOIN reimbursement_status ON status_id = status INNER JOIN reimbursement_type on type_id = typee WHERE (username = ? AND password = ? AND currentstatus = 'APPROVED') OR (username = ? AND password = ? AND currentstatus = 'DENIED');";
+	    		String sql = "SELECT * FROM reimbursement INNER JOIN ers_users ON user_id = author INNER JOIN reimbursement_status ON status_id = status INNER JOIN reimbursement_type on type_id = typee WHERE (username = ? AND currentstatus = 'APPROVED') OR (username = ? AND currentstatus = 'DENIED');";
 	    		
 	    		PreparedStatement ps = connect.prepareStatement(sql);
 	    		
 	    		ps.setString(1, username);
-	    		ps.setString(2, password);
-	    		ps.setString(3, username);
-	    		ps.setString(4, password);
+	    		ps.setString(2, username);
 	    		
 	    		rs = ps.executeQuery();
 	    		

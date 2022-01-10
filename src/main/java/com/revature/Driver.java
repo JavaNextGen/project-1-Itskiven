@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import com.revature.controllers.AuthController;
+import com.revature.controllers.ReimbursementController;
 import com.revature.controllers.UserController;
 import com.revature.models.TemporaryMenu;
 import com.revature.util.ConnectionFactory;
@@ -15,6 +16,7 @@ public class Driver {
     public static void main(String[] args) {
     	
     	UserController uc = new UserController();
+    	ReimbursementController rc = new ReimbursementController();
     	AuthController ac = new AuthController();
     	
     	//Testing Database Connectivity
@@ -37,10 +39,28 @@ public class Driver {
 				}
 			).start(3000);
 	
-    	app.get("/user", uc.getUsersHandler);
-		app.post("/user", uc.createUserHandler);
-    	app.post("/login", ac.loginUserHandler);
     	
+    	
+    	//===================================================USERSERVICE========================================
+    	app.get("/user/{username}", uc.getByUsernameHandler);
+    	app.get("/user", uc.getAllUsersHandler);
+    	app.get("/user/id/{Id}", uc.getUserByIdHandler);
+  
+    	//===============================================REIMBURSEMENTSERVICE===================================
+    	app.get("/reimbursement", rc.getPendingReimbursementHandler);
+    	app.get("/reimbursement/{username}", rc.getOwnReimbursementHandler);
+    	app.get("/reimbursement/rs/{username}", rc.getResolvedReimbursementHandler);
+    	app.get("/reimbursement/stat/status", rc.getReimbursementByStatusHandler);
+    	app.post("/reimbursement/submit", rc.submitReimbursementHandler);
+    	app.put("/reimbursement", rc.processHandler);
+    	app.put("/reimbursement/update", rc.updateHandler);
+    	
+    	
+    	//===================================================AUTHSERVICE========================================
+		app.post("/login", ac.loginUserHandler);
+		app.post("/user/register", ac.createUserHandler);
+		
+//		app.post("/login1", ac.loginHandler);
     	
     } //end of main method
 }//end of Driver class

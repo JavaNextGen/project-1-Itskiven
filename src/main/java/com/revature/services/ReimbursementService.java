@@ -71,13 +71,13 @@ public class ReimbursementService {
      	return reimbursement;
      }
     
-    public List<Reimbursement> getOwnReimbursement(String username, String password) {
-    	List<Reimbursement> reimbursement = rDAO.getOwnReimbursement(username, password);
+    public List<Reimbursement> getOwnReimbursement(String username) {
+    	List<Reimbursement> reimbursement = rDAO.getOwnReimbursement(username);
     	return reimbursement;
     }
     
-	public List<Reimbursement> getResolvedReimbursement(String username, String password) {
-		List<Reimbursement> reimbursement = rDAO.getResolvedReimbursements(username, password);
+	public List<Reimbursement> getResolvedReimbursement(String username) {
+		List<Reimbursement> reimbursement = rDAO.getResolvedReimbursements(username);
      	return reimbursement;
 	}
     

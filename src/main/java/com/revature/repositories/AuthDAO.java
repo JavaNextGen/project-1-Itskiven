@@ -9,7 +9,7 @@ import com.revature.util.ConnectionFactory;
 
 public class AuthDAO {
 
-	public boolean[] login2(String username, String password) {
+	public boolean login2(String username, String password) {
 		try(Connection connect = ConnectionFactory.getConnection()) {
 			
 			ResultSet rs = null;
@@ -27,7 +27,7 @@ public class AuthDAO {
 			
 			//create an empty List to be filled with the data from the database
 			String[] resultuser = new String[2];
-			boolean[] endresult = new boolean[2];
+			boolean endresult = false;
 	//we technically don't need this while loop since we're only getting one result back... see if you can refactor :)
 			while(rs.next()) { //while there are results in the result set...
 				
@@ -37,11 +37,9 @@ public class AuthDAO {
 			
 			//and populate the ArrayList with each new Employee object
 				if (resultuser[0].equals(username) && resultuser[1].equals(password)) {
-					endresult [0] = true;
-					endresult [1] = true;
+					endresult = true;
 				} else {
-					endresult [0] = false;
-					endresult [1] =false;
+					endresult = false;
 				}
 			
 			}
@@ -53,8 +51,9 @@ public class AuthDAO {
 		} catch (SQLException e) {
 			System.out.println("Something went wrong with the database!"); 
 			e.printStackTrace();
+			return false;
 		}
-		return null;
+	
 	}
 	
 	
