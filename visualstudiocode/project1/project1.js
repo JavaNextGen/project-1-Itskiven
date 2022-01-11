@@ -8,6 +8,69 @@ const url = "http://localhost:3000/" //putting our base URL in a variable for cl
 document.getElementById("loginButton").addEventListener("click", login);
 document.getElementById("registerButton").addEventListener("click", register);
 
+//this function will send the user-inputted login credentials to our server
+async function login() {
+
+    //gather the user inputs from the login inputs
+    let usern = document.getElementById("username").value;
+    let userp = document.getElementById("password").value;
+
+  
+
+    //we want to send the user/pass as JSON, so we need a JS object to send
+    let user = {
+        username:usern,
+        password:userp
+    }
+
+    // export {user};
+    //This object will reflect our DTO in Java... This is the data we want to transfer!
+    console.log(user)
+
+    //fetch request to the server
+    //remember the second parameter fetch can take? It's essentially for configuring our fetch request
+    //fetch sends a GET by default, but this seconds parameter can change that and more!
+
+    let response = await fetch(url + "login", {
+
+        method: "POST", //send a POST request (would be a GET if we didn't do this...)
+        body: JSON.stringify(user), //turn our user object into JSON
+        credentials: "include"
+        //this last line will ensure that the cookie is captured (so that we can have a user session)
+        //future fetches will also require this "include" value to send the cookie back
+    });
+
+
+    
+    // let response = await fetch(url + "login", {
+
+    //     method: "POST", //send a POST request (would be a GET if we didn't do this...)
+    //     body: JSON.stringify(user), //turn our user object into JSON
+    //     credentials: "include"
+    //     //this last line will ensure that the cookie is captured (so that we can have a user session)
+    //     //future fetches will also require this "include" value to send the cookie back
+    // });
+
+
+    //control flow based on successful/unsuccessful login
+    if(response.status === 200) {
+        document.getElementById("text").innerText="WELCOME EMPLOYEE!";
+         window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/employee/employee.html";}, 3000);
+     
+    } else if (response.status === 202){
+        document.getElementById("text").innerText="WELCOME FINANCE MANAGER!";
+        window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/financemanager.html";}, 3000);
+     
+    }
+    else {
+        document.getElementById("text").innerText="LOGIN FAILED! PAGE WILL AUTOMATICALLY REFRESH";
+        window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/project1/project1.html";}, 3000);
+    }
+
+    localStorage.setItem("actualuser", usern);
+    return;
+}
+
 function register(){
 document.getElementById("text").innerText="REGISTRATION";   
 window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/project1/register.html";}, 1500);
@@ -69,50 +132,5 @@ window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneD
 
 // }
 
-//this function will send the user-inputted login credentials to our server
-async function login() {
 
-    //gather the user inputs from the login inputs
-    let usern = document.getElementById("username").value;
-    let userp = document.getElementById("password").value;
-
-    //we want to send the user/pass as JSON, so we need a JS object to send
-    let user = {
-        username:usern,
-        password:userp
-    }
-
-    // export {user};
-    //This object will reflect our DTO in Java... This is the data we want to transfer!
-    console.log(user)
-
-    //fetch request to the server
-    //remember the second parameter fetch can take? It's essentially for configuring our fetch request
-    //fetch sends a GET by default, but this seconds parameter can change that and more!
-
-    let response = await fetch(url + "login", {
-
-        method: "POST", //send a POST request (would be a GET if we didn't do this...)
-        body: JSON.stringify(user), //turn our user object into JSON
-        credentials: "include"
-        //this last line will ensure that the cookie is captured (so that we can have a user session)
-        //future fetches will also require this "include" value to send the cookie back
-    });
-
-
-    //control flow based on successful/unsuccessful login
-    if(response.status === 200) {
-        document.getElementById("text").innerText="WELCOME EMPLOYEE!";
-         window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/project1/employee.html";}, 4000);
-     
-    } else if (response.status === 202){
-        document.getElementById("text").innerText="WELCOME FINANCE MANAGER!";
-        window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/project1/financemanager.html";}, 4000);
-     
-    }
-    else {
-        document.getElementById("text").innerText="LOGIN FAILED! PAGE WILL AUTOMATICALLY REFRESH";
-        window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/project1/project1.html";}, 4000);
-    }
-}
 

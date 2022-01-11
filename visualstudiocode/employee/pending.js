@@ -1,23 +1,25 @@
-// const url = "http://localhost:3000/"
+const url = "http://localhost:3000/"
 
 document.getElementById("wholebody").addEventListener("mouseover", pending);
 document.getElementById("backButton").addEventListener("click", back);
 
 function back(){
     document.getElementById("text").innerText="GOING TO EMPLOYEE HOMEPAGE";   
-    window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/project1/employee.html";}, 1500);
+    window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/employee/employee.html";}, 1500);
     }
 
 async function pending() {
 
     document.body.removeEventListener("mouseover", pending);
 
-    
-    let response = await fetch (url + "http://localhost:3000/reimbursement" + );
+    actualuser = localStorage.getItem('actualuser');
+
+    let response = await fetch (url + "reimbursement/" + actualuser);
 
     if (response.status === 200) {
 
         let data = await response.json();
+        console.log(data);
 
         for(let reimbursement of data) {
             
@@ -32,11 +34,16 @@ async function pending() {
             row.appendChild(cell2);
 
             let cell3 = document.createElement("td");
-            cell3.innerHTML = reimbursement.status;
+            cell3.innerHTML = reimbursement.typee;
             row.appendChild(cell3);
 
             let cell4 = document.createElement("td");
-            cell4.innerHTML = reimbursement.typee;
+            cell4.innerHTML = reimbursement.status;
+            if (cell4.innerHTML == "PENDING") {
+                cell4.style.backgroundColor = "yellow";
+            } else{
+                cell4.style.backgroundColor = "red";
+            }
             row.appendChild(cell4);
 
             document.getElementById("userBody").appendChild(row);

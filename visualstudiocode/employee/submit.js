@@ -1,14 +1,14 @@
 const url = "http://localhost:3000/"
 
 document.getElementById("cancelButton").addEventListener("click", cancel);
-document.getElementById("createButton").addEventListener("click", create);
+document.getElementById("createButton").addEventListener("click", submit);
 
 function cancel(){
-    document.getElementById("text").innerText="GOING TO THE MAIN PAGE";   
-    window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/project1/project1.html";}, 1500);
+    document.getElementById("text").innerText="GOING TO EMPLOYEE HOMEPAGE";   
+    window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/employee/employee.html";}, 1500);
     }
 
-async function create(){
+async function submit(){
     let usern = document.getElementById("username").value;
     let userp = document.getElementById("password").value;
     let userfn = document.getElementById("fname").value;

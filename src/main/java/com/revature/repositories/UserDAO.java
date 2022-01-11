@@ -396,6 +396,81 @@ try(Connection connect = ConnectionFactory.getConnection()) {
 		}
 		return (Integer) null;
 	}
+
+    
+    //=============================================================================================================================
+    
+	public String createProblem(String username) {
+	try(Connection conn = ConnectionFactory.getConnection()){
+			
+			//we'll create a SQL statement using parameters to insert a new Employee
+			String sql = "INSERT INTO getusername (actualusername) " //creating a line break for readability
+					    + "VALUES (?); "; //these are parameters!! We have to specify the value of each "?"
+			
+			PreparedStatement ps = conn.prepareStatement(sql); //we use PreparedStatements for SQL commands with variables
+			
+			//use the PreparedStatement objects' methods to insert values into the query's ?s
+			//the values will come from the Employee object we send in.
+			ps.setString(1, username); //1 is the first ?, 2 is the second, etc.
+		
+									
+			//this executeUpdate() method actually sends and executes the SQL command we built
+			ps.executeUpdate(); //we use executeUpdate() for inserts, updates, and deletes. 
+			//we use executeQuery() for selects
+			
+			//send confirmation to the console if successul.
+			System.out.println(username + "Successfully Signed In!");
+			
+			
+		} catch(SQLException e) {
+			System.out.println("User creation failed");
+			e.printStackTrace();
+		} 
+		return username;
+	}
+
+	public String getUsernameProblem() {
+	try (Connection connect = ConnectionFactory.getConnection()){
+		
+		//Initialize an empty ResultSet object that will store the results of our SQL query
+		ResultSet rs = null;
+
+		//Write the query that we want to send to the database and assign it to a String
+		String sql = "SELECT * FROM getusername WHERE users_id = (SELECT max(users_id) FROM getusername);";
+		
+		//Put the SQL query into a Statement object (The Connection object has a method for this!! implicit?)
+		Statement statement = connect.createStatement();
+		
+		//Execute the Query by putting the results of the query into our ResultSet object (rs)
+		//The Statement object has a method that takes Strings to execute as a SQL query
+		rs = statement.executeQuery(sql);
+		
+		//ALL THE CODE ABOVE MAKES A CALL TO OUR DATABASE. Now we need to store the data in an ArrayList.
+		
+		//create an empty ArrayList to be filled with the data from the database
+		String user = new String(); //Upcasting, we are instantiating an ArrayList
+		
+		
+		//while there are results in the resultset
+		while(rs.next()) {	
+			
+			String r= rs.getString("actualusername");
+			//and populate the ArrayList with each new Employee object
+			user = r; //e is the new User object we created above
+		}
+		
+		//when there are no more results in rs, the while loop will break
+		//then, return the populated ArrayList of Users
+		return user;
+		
+	} catch (SQLException e) {
+		System.out.println("Something went wrong obtaining the users!");
+		e.printStackTrace();
+	}
+	
+	return null; //we add this after the try/catch block, so Java won't yell
+	//(Since there's no guarantee that the try will run)
+}
    
 
     

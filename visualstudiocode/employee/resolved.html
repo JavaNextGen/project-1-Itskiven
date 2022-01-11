@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Resolved Reimbursements</title>
+		<!-- This is a link to a bootstrap stylesheet, which will basically set a premade style for your page -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+			crossorigin="anonymous"
+		/>
+		<!--bootstrap classes cheatsheet-->
+		<!--https://www.w3schools.com/bootstrap/bootstrap_ref_css_buttons.asp-->
+		<style>
+			.bg-image { 
+				background-image: url("file:///C:/Users/admin/Downloads/c-o-kda-worlds-1.jpg");
+				height: 100%;
+				background-position:center;
+				background-repeat: repeat;
+				background-size: 1510px 884px;
+			}
+
+			.blur {
+				background: rgba(255,255,255,.2);
+				height: 100vh;
+					width: 100%;
+			}
+
+			#text {
+				background-color: rgb(0,0,0); /* Fallback color */
+ 				background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+  				color: white;
+				font-weight: bold;
+				border: 3px solid #f1f1f1;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				z-index: 2;
+				width: 80%;
+				padding: 20px;
+				text-align: center;
+				backdrop-filter: blur(2px);
+			}
+
+            .red {
+            background-color: red;
+            }
+
+            .green {
+            background-color: green; 
+            }
+
+		</style>
+	</head>
+
+	<body id = "wholebody">
+		<div class="bg-image">
+		<div class="blur">
+		<div id="text">
+	    	<h2>RESOLVED REIMBURSEMENTS</h2>
+            <div align="Left">
+                <button id="backButton" class="btn btn-danger col-sm-1"><b>Back</b></button>
+            </div>
+<br>
+<br>
+	    <div>
+		
+		<div id="loginRow" class="row">
+			
+				
+        
+                
+		</div>
+		</div>
+
+
+
+
+
+
+			<!-- We want to display(table) all of the employee information when it comes back from the server -->
+			 <div id="table-row" class="row">
+				<table id="userTable" class="table table-hover table-bordered table-light">
+					<thead>
+						<tr class="table-info">
+							<th>ID</th>
+							<th>Amount</th>
+							<th>Type</th>
+							<th id = "color">Status</th>
+						</tr>
+					</thead>
+					<tbody id="userBody"> 
+						<!-- We'll leave this blank: it will be filled by our JS when data comes in -->
+					</tbody>
+				</table>
+			</div>
+
+			
+
+
+
+		</div>
+	    </div>
+	    </div>
+		
+		<script src="resolved.js"></script>  
+	</body>
+</html>

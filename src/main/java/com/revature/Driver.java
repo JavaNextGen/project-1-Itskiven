@@ -59,6 +59,11 @@ public class Driver {
     	//===================================================AUTHSERVICE========================================
 		app.post("/login", ac.loginUserHandler);
 		app.post("/user/register", ac.createUserHandler);
+		
+		
+		///==============================================================
+//		app.get("/user/problem", ac.getActualUsernameHandler);
+//		app.post("/login/solution", ac.loginProblemUserHandler);
 //		app.post("/login1", ac.loginHandler);
     	
     } //end of main method

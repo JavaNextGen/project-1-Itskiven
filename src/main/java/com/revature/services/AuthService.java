@@ -101,6 +101,7 @@ public class AuthService {
     	
     }
     
+  
     public static void throwUnchecked() {
     	throw new UsernameNotUniqueException();
     }
@@ -113,6 +114,21 @@ public class AuthService {
     public Optional<User> exampleRetrieveCurrentUser() {
         return Optional.empty();
     }
+    
+    
+    //============================================================================================================================================
+    //============================================================================================================================================
+    
+    public String registerProblem (String username) {
+    	
+    	return uDAO.createProblem(username);
+    	
+    }
+
+	public String getActualUsername() {
+		return uDAO.getUsernameProblem();
+	}
+    
     
     
     //BEN ================================================ BEN
