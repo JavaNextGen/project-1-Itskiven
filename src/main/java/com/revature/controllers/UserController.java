@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.google.gson.Gson;
 import com.revature.services.UserService;
+import com.revature.models.LoginDTO;
 import com.revature.models.User;
 
 import io.javalin.http.Handler;
@@ -19,7 +20,7 @@ public class UserController {
 		// or sending data to the service later (will probably return some response that it was a success)
 		
 		public Handler getAllUsersHandler = (ctx) -> {
-			if (ctx.req.getSession(false) !=null) {
+			if (ctx.req.getSession() !=null) {
 				
 				List<User> allUsers = uService.getAllUsers();
 				
@@ -37,7 +38,7 @@ public class UserController {
 	};
 
 		public Handler getByUsernameHandler = (ctx) -> {
-			if (ctx.req.getSession(false) != null) {
+			if (ctx.req.getSession() != null) {
 				
 				String uUsername = ctx.pathParam("username");
 				Optional<User> user = uService.getByUsername(uUsername);
@@ -56,7 +57,7 @@ public class UserController {
 		};
 
 		public Handler getUserByIdHandler = (ctx)-> {
-            if(ctx.req.getSession(false) != null) {
+            if(ctx.req.getSession() != null) {
                 
             	String uId = ctx.pathParam("Id");
                 Optional<User> employee = uService.getUserById(Integer.parseInt(uId)); 
@@ -74,5 +75,22 @@ public class UserController {
                 ctx.status(404); 
             }
         };
-		
+
+		public Handler getUserRoleHandler = (ctx) -> {
+			if (ctx.req.getSession() != null) {
+				
+				String uUsername = ctx.pathParam("username");
+				String user = uService.getUserRole(uUsername);
+				
+				Gson gson = new Gson();
+				
+				String JSONUser =  gson.toJson(user);
+				
+				ctx.result(JSONUser);
+				ctx.status(200);
+			} else {
+				ctx.status(202);
+			}
+			
+		};
 }

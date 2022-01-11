@@ -79,12 +79,12 @@ public class UserService {
 	}
 	}
 	
-	public String getUserRole(String username, String password) {
-		return uDAO.getUserRole(username, password);
+	public String getUserRole(String username) {
+		return uDAO.getUserRole(username);
 	}
 	
-	public int getAuthor(String username, String password) {
-		return uDAO.getAuthor(username, password);
+	public int getAuthor(String username) {
+		return uDAO.getAuthor(username);
 	}
 	
 

@@ -157,8 +157,8 @@ public class TemporaryMenu {
 				Optional<User> log = aService.login(username, password);	
 				System.out.println(log);
 				
-				String users = uService.getUserRole(username, password);
-				int author = uService.getAuthor(username, password);
+				String users = uService.getUserRole(username);
+				int author = uService.getAuthor(username);
 				
 				
 				if (log.equals(Optional.empty())){

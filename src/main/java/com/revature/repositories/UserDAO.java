@@ -277,19 +277,18 @@ try(Connection connect = ConnectionFactory.getConnection()) {
 		return null;
 	}
     
-    public String getUserRole(String username, String password) {
+    public String getUserRole(String username) {
 		try(Connection connect = ConnectionFactory.getConnection()) {
 			
 			ResultSet rs = null;
 			
-			String sql = "SELECT role FROM ers_users INNER JOIN user_roles ON roles_id = role_id WHERE username = ? AND password = ?;";
+			String sql = "SELECT role FROM ers_users INNER JOIN user_roles ON roles_id = role_id WHERE username = ?;";
 			
 			//when we need parameters we need to use a PREPARED Statement, as opposed to a Statement (seen above)
 			PreparedStatement ps = connect.prepareStatement(sql); //prepareStatment() as opposed to createStatment()
 			
 			//insert the methods argument (int id) as the first (and only) variable in our SQL query
 			ps.setString(1, username); //the 1 here is referring to the first parameter (?) found in our SQL String
-			ps.setString(2, password);
 			
 			rs = ps.executeQuery();
 			
@@ -360,19 +359,18 @@ try(Connection connect = ConnectionFactory.getConnection()) {
 	}
     
     @SuppressWarnings("null")
-	public int getAuthor(String username, String password) {
+	public int getAuthor(String username) {
 		try(Connection connect = ConnectionFactory.getConnection()) {
 			
 			ResultSet rs = null;
 			
-			String sql = "SELECT user_id FROM ers_users INNER JOIN user_roles ON roles_id = role_id WHERE username = ? AND password = ?;";
+			String sql = "SELECT user_id FROM ers_users INNER JOIN user_roles ON roles_id = role_id WHERE username = ?;";
 			
 			//when we need parameters we need to use a PREPARED Statement, as opposed to a Statement (seen above)
 			PreparedStatement ps = connect.prepareStatement(sql); //prepareStatment() as opposed to createStatment()
 			
 			//insert the methods argument (int id) as the first (and only) variable in our SQL query
 			ps.setString(1, username); //the 1 here is referring to the first parameter (?) found in our SQL String
-			ps.setString(2, password);
 			
 			rs = ps.executeQuery();
 			

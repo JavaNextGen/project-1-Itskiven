@@ -18,7 +18,7 @@ public class ReimbursementController {
 	UserService uService = new UserService();
 	
 	public Handler submitReimbursementHandler= (ctx) -> {
-		if (ctx.req.getSession(false) !=null) {
+		if (ctx.req.getSession() !=null) {
 			
 			String body = ctx.body();
 		
@@ -47,7 +47,7 @@ public class ReimbursementController {
 	};
 
 	public Handler getPendingReimbursementHandler = (ctx) -> {
-			if (ctx.req.getSession(false) !=null) {
+			if (ctx.req.getSession() !=null) {
 				
 				List<Reimbursement> reimbursement = rService.getPendingReimbursements();
 				
@@ -65,7 +65,7 @@ public class ReimbursementController {
 	};
 	
 	public Handler getOwnReimbursementHandler = (ctx) -> {
-		if (ctx.req.getSession(false) !=null) {
+		if (ctx.req.getSession() !=null) {
 			
 			String uUsername = ctx.pathParam("username");
 			List<Reimbursement> reimbursement = rService.getOwnReimbursement(uUsername);
@@ -83,7 +83,7 @@ public class ReimbursementController {
 	
 };
 	public Handler getResolvedReimbursementHandler = (ctx) -> {
-		if (ctx.req.getSession(false) !=null) {
+		if (ctx.req.getSession() !=null) {
 			
 			String uUsername = ctx.pathParam("username");
 			List<Reimbursement> reimbursement = rService.getResolvedReimbursement(uUsername);
@@ -101,7 +101,7 @@ public class ReimbursementController {
 	
 };
 	public Handler getReimbursementByStatusHandler = (ctx) -> {
-		if (ctx.req.getSession(false) !=null) {
+		if (ctx.req.getSession() !=null) {
 			
 		
 			List<Reimbursement> reimbursement = rService.getReimbursementsByStatus();
@@ -119,7 +119,7 @@ public class ReimbursementController {
 	
 };
 	public Handler processHandler = (ctx) -> {
-		if (ctx.req.getSession(false) !=null) {
+		if (ctx.req.getSession() !=null) {
 			
 			String body = ctx.body();
 		
@@ -142,7 +142,7 @@ public class ReimbursementController {
 	};
 	
 	public Handler updateHandler = (ctx) -> {
-		if (ctx.req.getSession(false) !=null) {
+		if (ctx.req.getSession() !=null) {
 			
 			String body = ctx.body();
 		

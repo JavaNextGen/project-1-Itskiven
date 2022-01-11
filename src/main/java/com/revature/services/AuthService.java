@@ -65,6 +65,13 @@ public class AuthService {
     		return endresult;
     }
     
+    public boolean compareUsername (String username) {
+    	
+    	boolean endresult = aDAO.compareUsername(username);
+    	
+    	return endresult;
+    }
+    
     
     
     public String getUserPass(String username) {
