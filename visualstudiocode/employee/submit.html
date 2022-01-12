@@ -13,7 +13,7 @@
 		<!--https://www.w3schools.com/bootstrap/bootstrap_ref_css_buttons.asp-->
 		<style>
 			.bg-image { 
-				background-image: url("file:///C:/Users/admin/Downloads/c-o-champion-teemo-devil-splash.jpg");
+				background-image: url("file:///C:/Users/admin/Downloads/ionia-lor-10.jpg");
 				height: 100%;
 				background-position:center;
 				background-repeat: no-repeat;
@@ -54,41 +54,33 @@
 		<div class="blur">
 
 		<div id="text">
-		<h2>Reimbusement Request Submission</h2>
+		<h2><b>Reimbusement Request Submission</b></h2>
 		<!-- <h2>Employee Reimbursement System</h2> -->
 <br>
 <br>
 			<div>
 			<!-- Login Starts -->
 			<div id="loginRow" class="row">
-				<h4 align="center">Please Enter your Credentials</h4>
-				<div align="center">
-					<input id="username" placeholder="Enter Username" style="width: 30%;">
-				</div>
-                <div align="center">
-					<input id="password" type="password" placeholder="Enter Password" style="width: 30%;" >
-				</div>
-                <div align="center">
-					<input id="fname" placeholder="Enter First Name" style="width: 30%;" >
-				</div>
-                <div align="center">
-					<input id="lname" placeholder="Enter Last Name" style="width: 30%;" >
-				</div>
-                <div align="center">
-					<input id="email" placeholder="Enter Email Address" style="width: 30%;" >
-				</div>
-				
+				<!-- <h4 align="center">Please Enter Information</h4> -->
+				<br>
+                <br>
+              
                 <div>
-                    <label for ="currentrole">User Role: </label>
-                    <select id ="currentrole">
+                    <label for ="typee">Reimbursement Type: </label>
+                    <select id ="typee">
                         <option value="">~~Choose An Option~~</option>
-                        <option value = "EMPLOYEE">Employee</option>
-                        <option value = "FINANCE_MANAGER">Finance Manager</option>
+                        <option value = "LODGING">Lodging</option>
+                        <option value = "TRAVEL">Travel</option>
+                        <option value = "FOOD">Food</option>
+                        <option value = "OTHER">Other</option>
                     </select>
-                </div>
+                
+					<input id="number" placeholder="$$Amount" style="width: 20%; height: 25px;">
+				</div>
+
                 <div align="center">
-                    <br/>
-                <br/>
+                    <!-- <br/> -->
+                <!-- <br/> -->
 					<button id="submitButton" class="btn btn-primary col-sm-2" ><b>Submit Request</b></button>
 				</div>
                 

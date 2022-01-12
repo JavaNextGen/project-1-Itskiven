@@ -1,6 +1,7 @@
 const url = "http://localhost:3000/"
 
-document.getElementById("wholebody").addEventListener("mouseover", pending);
+// document.getElementById("wholebody").addEventListener("onload", pending);
+window.addEventListener("load", pending);
 document.getElementById("backButton").addEventListener("click", back);
 
 function back(){
@@ -9,8 +10,6 @@ function back(){
     }
 
 async function pending() {
-
-    document.body.removeEventListener("mouseover", pending);
 
     actualuser = localStorage.getItem('actualuser');
 

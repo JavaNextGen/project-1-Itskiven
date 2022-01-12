@@ -93,4 +93,23 @@ public class UserController {
 			}
 			
 		};
+
+		public Handler getAuthorHandler = (ctx) -> {
+			if (ctx.req.getSession() != null) {
+				
+				String uUsername = ctx.pathParam("username");
+				int author = uService.getAuthor(uUsername);
+				
+				Gson gson = new Gson();
+				
+				String JSONUser =  gson.toJson(author);
+				
+				ctx.result(JSONUser);
+				ctx.status(200);
+			} else {
+				ctx.status(202);
+			}
+			
+		};
+		
 }

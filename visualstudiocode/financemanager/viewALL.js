@@ -1,29 +1,25 @@
 const url = "http://localhost:3000/"
 
-// document.getElementById("wholebody").addEventListener("mouseover", resolved);
-window.addEventListener("load", resolved);
+window.addEventListener("load", allReimbursement);
 document.getElementById("backButton").addEventListener("click", back);
 
 function back(){
-    document.getElementById("text").innerText="GOING TO EMPLOYEE HOMEPAGE";   
-    window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/employee/employee.html";}, 1500);
+    document.getElementById("text").innerText="GOING TO FINANCE MANAGER HOMEPAGE";   
+    window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/financemanager.html";}, 1500);
     }
 
-async function resolved() {
+async function allReimbursement() {
 
-    actualuser = localStorage.getItem('actualuser');
-
-    let response = await fetch (url + "reimbursement/rs/" + actualuser);
+    let response = await fetch (url + "reimbursement/stat/status");
 
     if (response.status === 200) {
 
         let data = await response.json();
         console.log(data);
 
-
         for(let reimbursement of data) {
             
-            var row = document.createElement("tr");
+            let row = document.createElement("tr");
 
             let cell = document.createElement("td");
             cell.innerHTML = reimbursement.id;
@@ -35,16 +31,15 @@ async function resolved() {
 
             let cell3 = document.createElement("td");
             cell3.innerHTML = reimbursement.typee;
-            if (reimbursement.typee == "APPROVED") {
-                document.getElementById("color").setAttribute(color)
-            }
             row.appendChild(cell3);
 
             let cell4 = document.createElement("td");
             cell4.innerHTML = reimbursement.status;
-            if (cell4.innerHTML == "APPROVED") {
+            if (cell4.innerHTML == "PENDING") {
+                cell4.style.backgroundColor = "yellow";
+            } else if (cell4.innerHTML == "APPROVED"){
                 cell4.style.backgroundColor = "green";
-            } else if (cell4.innerHTML == "DENIED"){
+            } else{
                 cell4.style.backgroundColor = "red";
             }
             row.appendChild(cell4);
@@ -54,5 +49,6 @@ async function resolved() {
             
         }
     }
+
 
 }

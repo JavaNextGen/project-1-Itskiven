@@ -68,7 +68,12 @@ async function login() {
     }
 
     localStorage.setItem("actualuser", usern);
-    return;
+
+    let response2 = await fetch(url + "user/author/" + usern);
+    let data2 = await response2.json();
+    localStorage.setItem("intauthor", data2);
+
+    
 }
 
 function register(){

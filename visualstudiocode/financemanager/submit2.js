@@ -4,8 +4,8 @@ document.getElementById("cancelButton").addEventListener("click", cancel);
 document.getElementById("submitButton").addEventListener("click", submit);
 
 function cancel(){
-    document.getElementById("text").innerText="GOING TO EMPLOYEE HOMEPAGE";   
-    window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/employee/employee.html";}, 1500);
+    document.getElementById("text").innerText="GOING TO FINANCE MANAGER HOMEPAGE";   
+    window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/financemanager.html";}, 1500);
     }
 
 async function submit(){
@@ -30,11 +30,10 @@ async function submit(){
 
     if(response.status === 201) {
         document.getElementById("text").innerText="REIMBURSEMENT SUCCESSFULLY ADDED";
-         window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/employee/employee.html";}, 3000);
+         window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/financemanager.html";}, 3000);
 
     } else {
         document.getElementById("text").innerText="REIMBUSEMENT SUBMISSION FAILED! TRY AGAIN";
-        window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/employee/submit.html";}, 3000);
+        window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/submit2.html";}, 3000);
     }
 }
-

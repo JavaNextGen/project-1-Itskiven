@@ -45,6 +45,7 @@ public class Driver {
     	app.get("/user/{username}", uc.getByUsernameHandler);
     	app.get("/user", uc.getAllUsersHandler);
     	app.get("/user/id/{Id}", uc.getUserByIdHandler);
+    	app.get("/user/author/{username}", uc.getAuthorHandler);
     	app.post("/user/role/{username}", uc.getUserRoleHandler);
     	//===============================================REIMBURSEMENTSERVICE===================================
     	app.get("/reimbursement", rc.getPendingReimbursementHandler);
