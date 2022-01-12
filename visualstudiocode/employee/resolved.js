@@ -11,6 +11,8 @@ function back(){
 
 async function resolved() {
 
+    document.body.removeEventListener("mouseover", resolved);
+
     actualuser = localStorage.getItem('actualuser');
 
     let response = await fetch (url + "reimbursement/rs/" + actualuser);
@@ -29,25 +31,29 @@ async function resolved() {
             cell.innerHTML = reimbursement.id;
             row.appendChild(cell);
 
-            let cell2 = document.createElement("td");
-            cell2.innerHTML = reimbursement.amount;
-            row.appendChild(cell2);
+            let cell2 = reimbursement.resolver;
+            let response = await fetch (url + "user/id/" + cell2)
+            let datum = await response.json();
+            let actualcell2 = document.createElement("td");
+            actualcell2.innerHTML = datum.value.fname + " " + datum.value.lname;
+            row.appendChild(actualcell2);
 
             let cell3 = document.createElement("td");
-            cell3.innerHTML = reimbursement.typee;
-            if (reimbursement.typee == "APPROVED") {
-                document.getElementById("color").setAttribute(color)
-            }
+            cell3.innerHTML = reimbursement.amount;
             row.appendChild(cell3);
 
             let cell4 = document.createElement("td");
-            cell4.innerHTML = reimbursement.status;
-            if (cell4.innerHTML == "APPROVED") {
-                cell4.style.backgroundColor = "green";
-            } else if (cell4.innerHTML == "DENIED"){
-                cell4.style.backgroundColor = "red";
-            }
+            cell4.innerHTML = reimbursement.typee;
             row.appendChild(cell4);
+
+            let cell5 = document.createElement("td");
+            cell5.innerHTML = reimbursement.status;
+            if (cell5.innerHTML == "APPROVED") {
+                cell5.style.backgroundColor = "green";
+            } else if (cell5.innerHTML == "DENIED"){
+                cell5.style.backgroundColor = "red";
+            }
+            row.appendChild(cell5);
 
             document.getElementById("userBody").appendChild(row);
 

@@ -24,7 +24,7 @@ function submit(){
 
 
 function Process(){
-    document.getElementById("text").innerText="GOING TO PROCESS REIMBURSEMENT REQUEST/S";   
+    document.getElementById("text").innerText="GOING TO PROCESS REIMBURSEMENT REQUESTS";   
     window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/process.html";}, 1500);
     }
     

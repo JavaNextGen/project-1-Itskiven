@@ -54,25 +54,29 @@
                 <button id="backButton" class="btn btn-danger col-sm-1"><b>Back</b></button>
             </div>
 <br>
-<br>
+<!-- <br> -->
 	    <div>
 		
 		<div id="loginRow" class="row">
-			
+			<div>
+                <label for ="search">Search By: </label>
+                <select id ="search">
+                    <option value="">~~Choose An Option~~</option>
+                    <option value = "USERID">ID</option>
+                    <option value = "USERNAME">Username</option>
+                </select>
+            
+                <input id="stringorint" placeholder="Enter Information" style="width: 20%; height: 25px;">
+                <br><br>
+            </div>
 				
         
                 
 		</div>
 		</div>
-
-
-
-
-
-
 			<!-- We want to display(table) all of the employee information when it comes back from the server -->
 			 <div id="table-row" class="row">
-				<table id="userTable" class="table table-hover table-bordered table-light">
+				<table id="userTable" class="table table-hover table-light">
 					<thead>
 						<tr class="table-info">
 							<th>ID</th>
@@ -82,7 +86,6 @@
 						</tr>
 					</thead>
 					<tbody id="userBody"> 
-						<!-- We'll leave this blank: it will be filled by our JS when data comes in -->
 					</tbody>
 				</table>
 			</div>
