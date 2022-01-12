@@ -82,7 +82,7 @@ async function typing() {
                 row.appendChild(cell4);
     
                 document.getElementById("userBody").appendChild(row);
-                
+
             } else if (response.status === 404){
                 alert("ID DOES NOT EXIST");
             }

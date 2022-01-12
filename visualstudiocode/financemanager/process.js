@@ -2,6 +2,7 @@ const url = "http://localhost:3000/"
 
 window.addEventListener("load", pending);
 document.getElementById("backButton").addEventListener("click", back);
+document.getElementById("decisionButton").addEventListener("click", process);
 
 function back(){
     document.getElementById("text").innerText="GOING TO FINANCE MANAGER HOMEPAGE";   
@@ -57,5 +58,47 @@ async function pending() {
         }
     }
 
+
+}
+
+async function process() {
+
+    let idProcess = document.getElementById("number").value;
+    let resolver = localStorage.getItem("intauthor");
+    let decision = document.querySelector('input[name="choice"]:checked').value;
+  
+    // let response4 = await fetch()
+
+    let processing = {
+        id: idProcess,
+        status: decision,
+        resolver: resolver
+    }
+
+    console.log(processing);
+
+    let response = await fetch(url + "reimbursement/process", {
+
+        method: "PUT", 
+        body: JSON.stringify(processing), 
+        credentials: "include"
+
+    });
+
+    if(response.status === 202) {
+        console.log("REIMBURSEMENT UPDATED!")
+        document.getElementById("text").innerText="REIMBURSEMENT UPDATED!";
+        //  window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/process.html";}, 3000);
+
+    } else if (response.status === 204) {
+       
+        document.getElementById("text").innerText="REIMBURSEMENT ID DOES NOT EXIST! TRY AGAIN";
+        // window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/process.html";}, 3000);
+    } else {
+        document.getElementById("text").innerText="RETRIEVING ID FAILED";
+        // window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/process.html";}, 3000);
+    }
+
+    
 
 }

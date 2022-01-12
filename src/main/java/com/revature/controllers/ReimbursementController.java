@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.google.gson.Gson;
 import com.revature.models.Reimbursement;
@@ -127,9 +128,9 @@ public class ReimbursementController {
 		
 			Reimbursement submit = gson.fromJson(body, Reimbursement.class);
 			
-			Reimbursement reimbursementToBeProcessed = new Reimbursement (submit.getId(), submit.getStatus(), submit.getResolver());
+			Reimbursement reimbursementBeProcessed = new Reimbursement (submit.getId(), submit.getStatus(), submit.getResolver());
 			
-			rService.process(reimbursementToBeProcessed);
+			rService.process(reimbursementBeProcessed);
 		
 			ctx.result("Reimbursement Successfully Processed");
 			ctx.status(201);
@@ -163,5 +164,31 @@ public class ReimbursementController {
 		}
 
 	};
+	public Handler getReimbursementByIdHandler = (ctx) -> {
+		if (ctx.req.getSession() !=null) {
+			
+			String id = ctx.pathParam("id");
+			Optional<Reimbursement> reimbursement = rService.getById(Integer.parseInt(id));
+			
+			Gson gson = new Gson();
+			
+			String JSONReimbursements = gson.toJson(reimbursement);
+			
+			System.out.println(reimbursement);
+			if (reimbursement.equals(null)) {
+				ctx.status(204);
+				ctx.result("ID DOES NOT EXIST!");
+				ctx.result(JSONReimbursements);
+			} 
+			
+			
+//			ctx.status(200);
+//			ctx.result("Retrieving ID Success");
+		}
+//		else {
+//			ctx.result("Retrieving ID Failed");
+//			ctx.status(401);
+//	}
 	
+};
 }

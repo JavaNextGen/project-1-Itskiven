@@ -54,12 +54,26 @@
                 <button id="backButton" class="btn btn-danger col-sm-1"><b>Back</b></button>
             </div>
 <br>
-<br>
+
 	    <div>
 		
 		<div id="loginRow" class="row">
 			
-				
+            <div>
+                <label for ="search">Enter Reimbursement ID:</label>
+               
+            
+                <input id="number" type="number" placeholder="##" style="width: 5%; height: 25px;">
+                <form id ="finaldecision">
+                    <input type="radio" name="choice" value="APPROVED"><b>Approve</b>
+                    <input type="radio" name="choice" value="DENIED"><b>Deny</b>
+                </form>
+                <div align="Center">
+                    <button id="decisionButton" class="btn btn-info col-sm-1" style="height: 40px;"><b>Submit</b></button>
+                </div>
+
+                <br><br>
+            </div>
         
                 
 		</div>
