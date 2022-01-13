@@ -117,5 +117,20 @@ public class ReimbursementService {
 //		//returns list of users
 //		return reimbursementId;
     }
+	
+	public boolean ifIdExist (int id) {
+		
+		boolean endresult = rDAO.ifIdExist(id);
+		
+		return endresult;
+				
+	}
+	
+	public boolean reimbursementIdResolved (int id) {
+		
+		boolean endresult = rDAO.reimbursementIdResolved(id);
+		
+		return endresult;
+	}
 
 }

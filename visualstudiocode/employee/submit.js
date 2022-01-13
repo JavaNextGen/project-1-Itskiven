@@ -1,11 +1,11 @@
 const url = "http://localhost:3000/"
 
-document.getElementById("cancelButton").addEventListener("click", cancel);
+document.getElementById("backButton").addEventListener("click", back);
 document.getElementById("submitButton").addEventListener("click", submit);
 
-function cancel(){
-    document.getElementById("text").innerText="GOING TO EMPLOYEE HOMEPAGE";   
-    window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/employee/employee.html";}, 1500);
+function back(){
+    // document.getElementById("text").innerText="GOING TO EMPLOYEE HOMEPAGE";   
+    window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/employee/employee.html";
     }
 
 async function submit(){

@@ -47,15 +47,21 @@ public class Driver {
     	app.get("/user/id/{Id}", uc.getUserByIdHandler);
     	app.get("/user/author/{username}", uc.getAuthorHandler);
     	app.post("/user/role/{username}", uc.getUserRoleHandler);
+    	
     	//===============================================REIMBURSEMENTSERVICE===================================
     	app.get("/reimbursement", rc.getPendingReimbursementHandler);
     	app.get("/reimbursement/{username}", rc.getOwnReimbursementHandler);
     	app.get("/reimbursement/rs/{username}", rc.getResolvedReimbursementHandler);
     	app.get("/reimbursement/stat/status", rc.getReimbursementByStatusHandler);
-    	app.get("reimbursement/id/{id}", rc.getReimbursementByIdHandler);
     	app.put("/reimbursement/process", rc.processHandler);
     	app.put("/reimbursement/update", rc.updateHandler);
     	app.post("/reimbursement/submit", rc.submitReimbursementHandler);
+    	
+    	
+    	
+    	
+//    	app.post("reimbursement/id/", rc.getReimbursementByIdHandler);
+    	
     	
     	//===================================================AUTHSERVICE========================================
 		app.post("/login", ac.loginUserHandler);

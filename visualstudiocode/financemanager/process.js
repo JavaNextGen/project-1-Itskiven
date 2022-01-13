@@ -5,8 +5,8 @@ document.getElementById("backButton").addEventListener("click", back);
 document.getElementById("decisionButton").addEventListener("click", process);
 
 function back(){
-    document.getElementById("text").innerText="GOING TO FINANCE MANAGER HOMEPAGE";   
-    window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/financemanager.html";}, 1500);
+    // document.getElementById("text").innerText="GOING TO FINANCE MANAGER HOMEPAGE";   
+    window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/financemanager.html";
     }
 
 async function pending() {
@@ -88,15 +88,18 @@ async function process() {
     if(response.status === 202) {
         console.log("REIMBURSEMENT UPDATED!")
         document.getElementById("text").innerText="REIMBURSEMENT UPDATED!";
-        //  window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/process.html";}, 3000);
+         window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/process.html";}, 3000);
 
-    } else if (response.status === 204) {
+    } else if (response.status === 404) {
        
         document.getElementById("text").innerText="REIMBURSEMENT ID DOES NOT EXIST! TRY AGAIN";
-        // window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/process.html";}, 3000);
-    } else {
-        document.getElementById("text").innerText="RETRIEVING ID FAILED";
-        // window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/process.html";}, 3000);
+        window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/process.html";}, 3000);
+    } else if (response.status === 400){
+        document.getElementById("text").innerText="REIMBURSEMENT ALREADY RESOLVED!";
+        window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/process.html";}, 3000);
+    } else if (response.status === 403) {
+        document.getElementById("text").innerText="YOU CANNOT PROCESS YOUR OWN REIMBURSEMENT REQUEST!";
+        window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/process.html";}, 3000);
     }
 
     

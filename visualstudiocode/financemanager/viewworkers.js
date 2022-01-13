@@ -6,8 +6,8 @@ document.getElementById("backButton").addEventListener("click", back);
 document.getElementById("stringorint").addEventListener("change", typing);
 
 function back(){
-    document.getElementById("text").innerText="GOING TO FINANCE MANAGER HOMEPAGE";   
-    window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/financemanager.html";}, 1500);
+    // document.getElementById("text").innerText="GOING TO FINANCE MANAGER HOMEPAGE";   
+    window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/financemanager.html";
     }
 
 async function worker() {
@@ -36,8 +36,12 @@ async function worker() {
             row.appendChild(cell3);
 
             let cell4 = document.createElement("td");
-            cell4.innerHTML = user.role;
+            cell4.innerHTML = user.email;
             row.appendChild(cell4);
+    
+            let cell5 = document.createElement("td");
+            cell5.innerHTML = user.role;
+            row.appendChild(cell5);
 
             document.getElementById("userBody").appendChild(row);
 
@@ -76,15 +80,17 @@ async function typing() {
                 let cell3 = document.createElement("td");
                 cell3.innerHTML = data.value.lname;
                 row.appendChild(cell3);
-    
+
                 let cell4 = document.createElement("td");
-                cell4.innerHTML = data.value.role;
+                cell4.innerHTML = data.value.email;
                 row.appendChild(cell4);
+    
+                let cell5 = document.createElement("td");
+                cell5.innerHTML = data.value.role;
+                row.appendChild(cell5);
     
                 document.getElementById("userBody").appendChild(row);
 
-            } else if (response.status === 404){
-                alert("ID DOES NOT EXIST");
             }
 
     } else if (document.getElementById("search").value == "USERNAME") {
@@ -114,8 +120,12 @@ async function typing() {
                 row.appendChild(cell3);
     
                 let cell4 = document.createElement("td");
-                cell4.innerHTML = data.value.role;
+                cell4.innerHTML = data.value.email;
                 row.appendChild(cell4);
+    
+                let cell5 = document.createElement("td");
+                cell5.innerHTML = data.value.role;
+                row.appendChild(cell5);
     
                 document.getElementById("userBody").appendChild(row);
     
@@ -124,6 +134,7 @@ async function typing() {
         
     } else {
         console.log("NONE")
+        let row = document.createElement("tr");
     }
 
     // let response = await fetch (url + "reimbursement/" + actualuser);

@@ -132,7 +132,7 @@ try(Connection connect = ConnectionFactory.getConnection()) {
     		ResultSet rs = null;
     
     		//Write the query that we want to send to the database and assign it to a String
-    		String sql = "SELECT * FROM reimbursement INNER JOIN reimbursement_status ON status_id = status INNER JOIN reimbursement_type on type_id = typee WHERE currentstatus IN ('PENDING', 'APPROVED', 'DENIED') ORDER BY CASE currentstatus WHEN 'PENDING' THEN 1 WHEN 'APPROVED' THEN 2 WHEN 'DENIED' THEN 3 END, reimb_id;";
+    		String sql = "SELECT * FROM reimbursement INNER JOIN reimbursement_status ON status_id = status INNER JOIN reimbursement_type on type_id = typee WHERE currentstatus IN ('APPROVED', 'DENIED') ORDER BY CASE currentstatus WHEN 'APPROVED' THEN 2 WHEN 'DENIED' THEN 3 END, reimb_id;";
     		
     		//Put the SQL query into a Statement object (The Connection object has a method for this!! implicit?)
     		Statement statement = connect.createStatement();
@@ -533,5 +533,95 @@ try(Connection connect = ConnectionFactory.getConnection()) {
 	    	}
 	    	return null;
 	    }
+
+
+	public boolean ifIdExist(int id) {
+		try(Connection connect = ConnectionFactory.getConnection()) {
+			
+			ResultSet rs = null;
+			
+			String sql = "SELECT reimb_id FROM reimbursement WHERE reimb_id = ?;";
+			
+			//when we need parameters we need to use a PREPARED Statement, as opposed to a Statement (seen above)
+			PreparedStatement ps = connect.prepareStatement(sql); //prepareStatment() as opposed to createStatment()
+			
+			//insert the methods argument (int id) as the first (and only) variable in our SQL query
+			ps.setInt(1, id); //the 1 here is referring to the first parameter (?) found in our SQL String
+			
+			rs = ps.executeQuery();
+			
+			//create an empty List to be filled with the data from the database
+			int resultuser = 0;
+			boolean endresult = false;
+	//we technically don't need this while loop since we're only getting one result back... see if you can refactor :)
+			while(rs.next()) { //while there are results in the result set...
+				
+				resultuser = rs.getInt("reimb_id");
+			
+			
+			//and populate the ArrayList with each new Employee object
+				if (resultuser == id) {
+					endresult = true;
+				} else {
+					endresult = false;
+				}
+			
+			}
+			
+			//when there are no more results in the ResultSet the while loop will break...
+			//return the populated List of Employees
+			return endresult;
+			
+		} catch (SQLException e) {
+			System.out.println("Something went wrong with the database!"); 
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+
+	public boolean reimbursementIdResolved(int id) {
+		try(Connection connect = ConnectionFactory.getConnection()) {
+			
+			ResultSet rs = null;
+			
+			String sql = "SELECT currentstatus FROM reimbursement r INNER JOIN reimbursement_status ON status_id = status WHERE reimb_id = ?";
+			
+			//when we need parameters we need to use a PREPARED Statement, as opposed to a Statement (seen above)
+			PreparedStatement ps = connect.prepareStatement(sql); //prepareStatment() as opposed to createStatment()
+			
+			//insert the methods argument (int id) as the first (and only) variable in our SQL query
+			ps.setInt(1, id); //the 1 here is referring to the first parameter (?) found in our SQL String
+			
+			rs = ps.executeQuery();
+			
+			//create an empty List to be filled with the data from the database
+			String resultuser = new String();
+			boolean endresult = false;
+	//we technically don't need this while loop since we're only getting one result back... see if you can refactor :)
+			while(rs.next()) { //while there are results in the result set...
+				
+				resultuser = rs.getString("currentstatus");
+			
+			
+			//and populate the ArrayList with each new Employee object
+				if (resultuser.equalsIgnoreCase("pending") ) {
+					endresult = false;
+				} else {
+					endresult = true;
+				}
+			
+			}
+			
+			//when there are no more results in the ResultSet the while loop will break...
+			//return the populated List of Employees
+			return endresult;
+			
+		} catch (SQLException e) {
+			System.out.println("Something went wrong with the database!"); 
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 }

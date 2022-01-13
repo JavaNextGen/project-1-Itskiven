@@ -71,8 +71,8 @@ public class AuthController {
 				Gson gson = new Gson();
 				
 
-				LoginDTO LDTO = gson.fromJson(body, LoginDTO.class);
 				User user = gson.fromJson(body, User.class);
+				LoginDTO LDTO = gson.fromJson(body, LoginDTO.class);
 				
 				if (aService.compareUsername(LDTO.getUsername()) == false) {
 				aService.register(user);
@@ -81,7 +81,7 @@ public class AuthController {
 				ctx.status(201);
 				
 			} else {
-				ctx.result("NOT LOGGED IN - Creating User Failed");
+				ctx.result("Creating User Failed");
 				ctx.status(404);
 			}
 				
@@ -94,7 +94,7 @@ public class AuthController {
 //			//GET requests will have empty request bodies, but POST requests, which send data, will have some data.
 //			String body = ctx.body(); //turn the body (data) of the POST request into a Java String
 //			
-//			Gson gson = new Gson(); // create Gson object to make Java <-> JSON conversions
+//			Gson gson = new Gson(); / create Gson object to make Java <-> JSON conversions
 //			
 //			LoginDTO LDTO = gson.fromJson(body, LoginDTO.class); //turn that JSON String into a LoginDTO object
 //			

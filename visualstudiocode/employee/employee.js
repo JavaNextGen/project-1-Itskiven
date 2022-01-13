@@ -7,21 +7,21 @@ document.getElementById("viewResolvedButton").addEventListener("click", resolved
 
 function logout(){
     document.getElementById("text").innerText="GOING TO MAIN PAGE";   
-    window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/project1/project1.html";}, 1500);
+    window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/project1/project1.html";
     }
 
    function submit(){
     document.getElementById("text").innerText="REIMBURSEMENT REQUEST SUBMISSION";   
-    window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/employee/submit.html";}, 1500);
+    window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/employee/submit.html";
     }    
 
 function pending(){
     document.getElementById("text").innerText="PENDING REIMBURSEMENTS";   
-    window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/employee/pending.html";}, 1500);
+    window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/employee/pending.html";
     }
 
 
 function resolved(){
     document.getElementById("text").innerText="RESOLVED REIMBURSEMENTS";   
-    window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/employee/resolved.html";}, 1500);
+   window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/employee/resolved.html";
     }    

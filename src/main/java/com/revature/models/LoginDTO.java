@@ -26,6 +26,7 @@ public class LoginDTO {
 		this.password = password;
 	}
 
+
 	//Getters&Setters to access fields
 	public String getUsername() {
 		return username;

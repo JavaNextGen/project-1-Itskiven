@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.google.gson.Gson;
+import com.revature.models.LoginDTO;
 import com.revature.models.Reimbursement;
 import com.revature.models.ReimbursementType;
 import com.revature.models.Status;
@@ -128,67 +129,78 @@ public class ReimbursementController {
 		
 			Reimbursement submit = gson.fromJson(body, Reimbursement.class);
 			
-			Reimbursement reimbursementBeProcessed = new Reimbursement (submit.getId(), submit.getStatus(), submit.getResolver());
-			
-			rService.process(reimbursementBeProcessed);
-		
-			ctx.result("Reimbursement Successfully Processed");
-			ctx.status(201);
-			
-		} else {
-			ctx.result("Reimbursement Process Failed");
-			ctx.status(404);
+			if (rService.ifIdExist(submit.getId()) == false){
+				ctx.status(404);
+				ctx.result("ID DOES NOT EXIST!");
+			} else if (rService.ifIdExist(submit.getId()) == true && rService.reimbursementIdResolved(submit.getId()) == true) {
+				ctx.result("ID EXIST AND REIMBURSEMENT IS ALREADY RESOLVED");
+				ctx.status(400);
+			} else if (rService.ifIdExist(submit.getId()) == true && rService.reimbursementIdResolved(submit.getId()) == false){
+				
+				if (rService.getIntAuthor(submit.getId()) == submit.getResolver()) {
+					ctx.status(403);
+				} else {
+					Reimbursement reimbursementBeProcessed = new Reimbursement (submit.getId(), submit.getStatus(), submit.getResolver());			
+					rService.process(reimbursementBeProcessed);
+					ctx.result("Reimbursement Successfully Updated");
+					ctx.status(202);
+				}
+			} 
 		}
+
 
 	};
 	
+	
+	
 	public Handler updateHandler = (ctx) -> {
-		if (ctx.req.getSession() !=null) {
-			
-			String body = ctx.body();
-		
-			Gson gson = new Gson();
-		
-			Reimbursement submit = gson.fromJson(body, Reimbursement.class);
-			
-			Reimbursement updatePendingReimbursement = new Reimbursement (submit.getId(), submit.getAmount(), submit.getType());
-			
-			rService.update(updatePendingReimbursement);
-		
-			ctx.result("Reimbursement Successfully Updated");
-			ctx.status(201);
-			
-		} else {
-			ctx.result("Reimbursement Update Failed");
-			ctx.status(404);
-		}
-
+//		if (ctx.req.getSession() !=null) {
+//			
+//			String body = ctx.body();
+//		
+//			Gson gson = new Gson();
+//		
+//			Reimbursement submit = gson.fromJson(body, Reimbursement.class);
+//			
+//			if (rService.ifIdExist(submit.getId()) == false){
+//				ctx.status(404);
+//				ctx.result("ID DOES NOT EXIST!");
+//			} else if (rService.ifIdExist(submit.getId()) == true && rService.reimbursementIdResolved(submit.getId()) == true) {
+//				ctx.result("ID EXIST AND REIMBURSEMENT IS ALREADY RESOLVED");
+//				ctx.status(400);
+//			} else if (rService.ifIdExist(submit.getId()) == true && rService.reimbursementIdResolved(submit.getId()) == false){
+//				Reimbursement updatePendingReimbursement = new Reimbursement (submit.getId(), submit.getAmount(), submit.getType());			
+//				rService.update(updatePendingReimbursement);
+//				ctx.result("Reimbursement Successfully Updated");
+//				ctx.status(202);
+//			} 
+//		}
 	};
-	public Handler getReimbursementByIdHandler = (ctx) -> {
-		if (ctx.req.getSession() !=null) {
-			
-			String id = ctx.pathParam("id");
-			Optional<Reimbursement> reimbursement = rService.getById(Integer.parseInt(id));
-			
-			Gson gson = new Gson();
-			
-			String JSONReimbursements = gson.toJson(reimbursement);
-			
-			System.out.println(reimbursement);
-			if (reimbursement.equals(null)) {
-				ctx.status(204);
-				ctx.result("ID DOES NOT EXIST!");
-				ctx.result(JSONReimbursements);
-			} 
+//	public Handler getReimbursementByIdHandler = (ctx) -> {
+//		if (ctx.req.getSession() !=null) {
+//
+//			String body = ctx.body();
+//			
+//			Gson gson = new Gson();
+//			
+//			LoginDTO LDTO = gson.fromJson(body, LoginDTO.class);
+//			String JSONReimbursements = gson.toJson(reimbursement);
+//			
+//			System.out.println(reimbursement);
+//			if (reimbursement.equals(null)) {
+//				ctx.status(204);
+//				ctx.result("ID DOES NOT EXIST!");
+//				ctx.result(JSONReimbursements);
+//			} 
 			
 			
 //			ctx.status(200);
 //			ctx.result("Retrieving ID Success");
-		}
+//		}
 //		else {
 //			ctx.result("Retrieving ID Failed");
 //			ctx.status(401);
 //	}
 	
-};
+//};
 }

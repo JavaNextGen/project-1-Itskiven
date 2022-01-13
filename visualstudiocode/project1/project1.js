@@ -77,8 +77,8 @@ async function login() {
 }
 
 function register(){
-document.getElementById("text").innerText="REGISTRATION";   
-window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/project1/register.html";}, 1500);
+// document.getElementById("text").innerText="REGISTRATION";   
+window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/project1/register.html";
 }
 //login button listener goes here
 

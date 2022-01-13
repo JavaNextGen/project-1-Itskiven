@@ -37,8 +37,8 @@ public class ReimbursementServiceTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		GENERIC_EMPLOYEE_1 = new User(1, "genericEmployee1", "genericPassword", Role.EMPLOYEE);
-		GENERIC_FINANCE_MANAGER_1 = new User(1, "genericManager1", "genericPassword", Role.FINANCE_MANAGER);
+		GENERIC_EMPLOYEE_1 = new User(1, "genericEmployee1", "genericPassword", null, null, null, Role.EMPLOYEE);
+		GENERIC_FINANCE_MANAGER_1 = new User(1, "genericManager1", "genericPassword", null, null, null, Role.FINANCE_MANAGER);
 		
 		REIMBURSEMENT_TO_PROCESS = new Reimbursement(2, Status.PENDING, GENERIC_EMPLOYEE_1, null, 150.00);
 		
@@ -54,18 +54,19 @@ public class ReimbursementServiceTest {
 		when(reimbursementDAO.getById(anyInt())).thenReturn(Optional.of(GENERIC_REIMBURSEMENT_1));
 		when(reimbursementDAO.update(any())).thenReturn(GENERIC_REIMBURSEMENT_2);
 		
-		assertEquals(GENERIC_REIMBURSEMENT_2, reimbursementService.process(REIMBURSEMENT_TO_PROCESS, Status.APPROVED, GENERIC_FINANCE_MANAGER_1));
-		
+//		assertEquals(GENERIC_REIMBURSEMENT_2, reimbursementService.process(REIMBURSEMENT_TO_PROCESS, Status.APPROVED, GENERIC_FINANCE_MANAGER_1));
+		assertEquals(GENERIC_REIMBURSEMENT_2, reimbursementService.process(REIMBURSEMENT_TO_PROCESS));
 		verify(reimbursementDAO).getById(REIMBURSEMENT_TO_PROCESS.getId());
 		verify(reimbursementDAO).update(REIMBURSEMENT_TO_PROCESS);
 	}
 	
 	@Test
 	public void testGetReimbursementByStatusPassesWhenReimbursementsAreSuccessfullyReturned() {
-		when(reimbursementDAO.getByStatus(any())).thenReturn(GENERIC_ALL_PENDING_REIMBURSEMENTS);
-		
-		assertEquals(GENERIC_ALL_PENDING_REIMBURSEMENTS, reimbursementService.getReimbursementsByStatus(Status.PENDING));
-		
-		verify(reimbursementDAO).getByStatus(Status.PENDING);
+//		when(reimbursementDAO.getByStatus(any())).thenReturn(GENERIC_ALL_PENDING_REIMBURSEMENTS);
+		when(reimbursementDAO.getByStatus()).thenReturn(GENERIC_ALL_PENDING_REIMBURSEMENTS);
+//		assertEquals(GENERIC_ALL_PENDING_REIMBURSEMENTS, reimbursementService.getReimbursementsByStatus(Status.PENDING));
+		assertEquals(GENERIC_ALL_PENDING_REIMBURSEMENTS, reimbursementService.getReimbursementsByStatus());
+//		verify(reimbursementDAO).getByStatus(Status.PENDING);
+		verify(reimbursementDAO).getByStatus();
 	}
 }

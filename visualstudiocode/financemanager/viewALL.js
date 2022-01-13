@@ -4,8 +4,8 @@ window.addEventListener("load", allReimbursement);
 document.getElementById("backButton").addEventListener("click", back);
 
 function back(){
-    document.getElementById("text").innerText="GOING TO FINANCE MANAGER HOMEPAGE";   
-    window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/financemanager.html";}, 1500);
+    // document.getElementById("text").innerText="GOING TO FINANCE MANAGER HOMEPAGE";   
+    window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/financemanager.html";
     }
 
 async function allReimbursement() {
@@ -25,24 +25,46 @@ async function allReimbursement() {
             cell.innerHTML = reimbursement.id;
             row.appendChild(cell);
 
-            let cell2 = document.createElement("td");
-            cell2.innerHTML = reimbursement.amount;
-            row.appendChild(cell2);
+            let cell2 = reimbursement.author;
+            let response2 = await fetch (url + "user/id/" + cell2)
+            let datum2 = await response2.json();
+            let actualcell2 = document.createElement("td");
+            actualcell2.innerHTML = datum2.value.fname + " " + datum2.value.lname;
+            row.appendChild(actualcell2);
 
-            let cell3 = document.createElement("td");
-            cell3.innerHTML = reimbursement.typee;
-            row.appendChild(cell3);
+            let cell3 = reimbursement.resolver;
+            let response3 = await fetch (url + "user/id/" + cell3)
+            let datum3 = await response3.json();
+            let actualcell3 = document.createElement("td");
+            // console.log(actualcell3)
+            // if (actualcell3.innerHTML = "undefined"){
+            //     console.log("1st")
+            //     actualcell3.innerHTML = "";
+            //     row.appendChild(actualcell3);
+            // } else {
+            //     console.log("2nd")
+            actualcell3.innerHTML = datum3.value.fname + " " + datum3.value.lname;
+            row.appendChild(actualcell3);
+            // }
 
             let cell4 = document.createElement("td");
-            cell4.innerHTML = reimbursement.status;
-            if (cell4.innerHTML == "PENDING") {
-                cell4.style.backgroundColor = "yellow";
-            } else if (cell4.innerHTML == "APPROVED"){
-                cell4.style.backgroundColor = "green";
-            } else{
-                cell4.style.backgroundColor = "red";
-            }
+            cell4.innerHTML = reimbursement.amount;
             row.appendChild(cell4);
+
+            let cell5 = document.createElement("td");
+            cell5.innerHTML = reimbursement.typee;
+            row.appendChild(cell5);
+
+            let cell6 = document.createElement("td");
+            cell6.innerHTML = reimbursement.status;
+            if (cell6.innerHTML == "PENDING") {
+                cell6.style.backgroundColor = "yellow";
+            } else if (cell6.innerHTML == "APPROVED"){
+                cell6.style.backgroundColor = "green";
+            } else{
+                cell6.style.backgroundColor = "red";
+            }
+            row.appendChild(cell6);
 
             document.getElementById("userBody").appendChild(row);
 

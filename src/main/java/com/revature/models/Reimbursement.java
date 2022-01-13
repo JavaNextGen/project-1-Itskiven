@@ -63,6 +63,10 @@ public class Reimbursement extends AbstractReimbursement {
 		super (id, status, resolver);
 	}
 
+	public Reimbursement(int i, Status pending, User gENERIC_EMPLOYEE_1, Object object, double d) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public ReimbursementType getType() {
 		return typee;
 	}

@@ -5,8 +5,8 @@ window.addEventListener("load", pending);
 document.getElementById("backButton").addEventListener("click", back);
 
 function back(){
-    document.getElementById("text").innerText="GOING TO FINANCE MANAGER HOMEPAGE";   
-    window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/financemanager.html";}, 1500);
+    // document.getElementById("text").innerText="GOING TO FINANCE MANAGER HOMEPAGE";   
+    window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/financemanager.html";
     }
 
 async function pending() {

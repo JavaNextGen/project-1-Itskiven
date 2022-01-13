@@ -5,8 +5,8 @@ window.addEventListener("load", resolved);
 document.getElementById("backButton").addEventListener("click", back);
 
 function back(){
-    document.getElementById("text").innerText="GOING TO EMPLOYEE HOMEPAGE";   
-    window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/employee/employee.html";}, 1500);
+    // document.getElementById("text").innerText="GOING TO EMPLOYEE HOMEPAGE";   
+    window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/employee/employee.html";
     }
 
 async function resolved() {
