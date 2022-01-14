@@ -45,12 +45,13 @@ async function pending() {
 
             let cell5 = document.createElement("td");
             cell5.innerHTML = reimbursement.status;
-            if (cell5.innerHTML == "PENDING") {
-                cell5.style.backgroundColor = "yellow";
-            } else{
-                cell5.style.backgroundColor = "red";
-            }
             row.appendChild(cell5);
+
+            cell.style.backgroundColor = "rgba(255,255,0,0.8)";
+            actualcell2.style.backgroundColor = "rgba(255,255,0,0.8)";
+            cell3.style.backgroundColor = "rgba(255,255,0,0.8)";
+            cell4.style.backgroundColor = "rgba(255,255,0,0.8)";
+            cell5.style.backgroundColor = "rgba(255,255,0,0.8)";
 
             document.getElementById("userBody").appendChild(row);
 

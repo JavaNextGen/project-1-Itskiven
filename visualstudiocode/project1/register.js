@@ -1,9 +1,9 @@
 const url = "http://localhost:3000/"
 
-document.getElementById("cancelButton").addEventListener("click", cancel);
+document.getElementById("backButton").addEventListener("click", back);
 document.getElementById("createButton").addEventListener("click", create);
 
-function cancel(){
+function back(){
     // document.getElementById("text").innerText="GOING TO THE MAIN PAGE";   
     window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/project1/project1.html";
     }
@@ -36,7 +36,7 @@ async function create(){
 
     if(response.status === 201) {
         document.getElementById("text").innerText="USER SUCCESSFULLY ADDED";
-         window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/project1/project1.html";}, 3000);
+         window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/project1/register.html";}, 3000);
 
     } else {
         document.getElementById("text").innerText="USERNAME ALREADY EXIST! - PLEASE TRY AGAIN";

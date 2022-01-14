@@ -38,17 +38,17 @@ public class ConnectionFactory {
      * @throws SQLException 
      */
     
-    //This method will return a Connection object in our repository package to interact with our database (Kevin)
+    //This method will return a Connection object in our repository package to interact with our database
     public static Connection getConnection() throws SQLException {
         
-    	//For compatibility with other technologies, we need to register our PostgreSQL Driver (Kevin)
-    	//This process makes the application aware of what database Driver (SQL dialect) we're using (Kevin)
+    	//For compatibility with other technologies, we need to register our PostgreSQL Driver
+    	//This process makes the application aware of what database Driver (SQL dialect) we're using 
     	try {
-    		Class.forName("org.postgresql.Driver"); //try to find and return the postgresql Driver Class (Kevin)
+    		Class.forName("org.postgresql.Driver"); //try to find and return the postgresql Driver Class
     	} catch (ClassNotFoundException e) {
     		System.out.println("Class wasn't found");
-    		e.printStackTrace(); // This will print the exception message to the console (Kevin)
-    		//e.printStackTrace is useful in debugging (Kevin)
+    		e.printStackTrace(); // This will print the exception message to the console
+    		//e.printStackTrace is useful in debugging
     	}
 
     	//Database Credentials!	

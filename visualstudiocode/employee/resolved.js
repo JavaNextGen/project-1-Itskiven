@@ -24,7 +24,7 @@ async function resolved() {
 
 
         for(let reimbursement of data) {
-            
+
             var row = document.createElement("tr");
 
             let cell = document.createElement("td");
@@ -48,12 +48,27 @@ async function resolved() {
 
             let cell5 = document.createElement("td");
             cell5.innerHTML = reimbursement.status;
-            if (cell5.innerHTML == "APPROVED") {
-                cell5.style.backgroundColor = "green";
-            } else if (cell5.innerHTML == "DENIED"){
-                cell5.style.backgroundColor = "red";
-            }
             row.appendChild(cell5);
+
+            if (cell5.innerHTML == "APPROVED") {
+                cell.style.backgroundColor = "rgba(0,255,0,0.5)";
+                actualcell2.style.backgroundColor = "rgba(0,255,0,0.5)";
+                cell3.style.backgroundColor = "rgba(0,255,0,0.5)";
+                cell4.style.backgroundColor = "rgba(0,255,0,0.5)";
+                cell5.style.backgroundColor = "rgba(0,255,0,0.5)";
+            } else if (cell5.innerHTML == "DENIED"){
+                cell.style.backgroundColor = "rgba(255,0,0,0.5)";
+                actualcell2.style.backgroundColor = "rgba(255,0,0,0.5)";
+                cell3.style.backgroundColor = "rgba(255,0,0,0.5)";
+                cell4.style.backgroundColor = "rgba(255,0,0,0.5)";
+                cell5.style.backgroundColor = "rgba(255,0,0,0.5)";
+            }
+            
+            cell.style.color = "white"
+            actualcell2.style.color = "white"
+            cell3.style.color = "white"
+            cell4.style.color = "white"
+            cell5.style.color = "white"
 
             document.getElementById("userBody").appendChild(row);
 

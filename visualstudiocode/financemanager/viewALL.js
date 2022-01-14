@@ -36,16 +36,8 @@ async function allReimbursement() {
             let response3 = await fetch (url + "user/id/" + cell3)
             let datum3 = await response3.json();
             let actualcell3 = document.createElement("td");
-            // console.log(actualcell3)
-            // if (actualcell3.innerHTML = "undefined"){
-            //     console.log("1st")
-            //     actualcell3.innerHTML = "";
-            //     row.appendChild(actualcell3);
-            // } else {
-            //     console.log("2nd")
             actualcell3.innerHTML = datum3.value.fname + " " + datum3.value.lname;
             row.appendChild(actualcell3);
-            // }
 
             let cell4 = document.createElement("td");
             cell4.innerHTML = reimbursement.amount;
@@ -57,14 +49,30 @@ async function allReimbursement() {
 
             let cell6 = document.createElement("td");
             cell6.innerHTML = reimbursement.status;
-            if (cell6.innerHTML == "PENDING") {
-                cell6.style.backgroundColor = "yellow";
-            } else if (cell6.innerHTML == "APPROVED"){
-                cell6.style.backgroundColor = "green";
-            } else{
-                cell6.style.backgroundColor = "red";
-            }
             row.appendChild(cell6);
+
+            if (cell6.innerHTML == "APPROVED") {
+                cell.style.backgroundColor = "rgba(0,255,0,0.5)";
+                actualcell2.style.backgroundColor = "rgba(0,255,0,0.5)";
+                actualcell3.style.backgroundColor = "rgba(0,255,0,0.5)";
+                cell4.style.backgroundColor = "rgba(0,255,0,0.5)";
+                cell5.style.backgroundColor = "rgba(0,255,0,0.5)";
+                cell6.style.backgroundColor = "rgba(0,255,0,0.5)";
+            } else if (cell6.innerHTML == "DENIED"){
+                cell.style.backgroundColor = "rgba(255,0,0,0.5)";
+                actualcell2.style.backgroundColor = "rgba(255,0,0,0.5)";
+                actualcell3.style.backgroundColor = "rgba(255,0,0,0.5)";
+                cell4.style.backgroundColor = "rgba(255,0,0,0.5)";
+                cell5.style.backgroundColor = "rgba(255,0,0,0.5)";
+                cell6.style.backgroundColor = "rgba(255,0,0,0.5)";
+            }
+
+            cell.style.color = "white"
+            actualcell2.style.color = "white"
+            actualcell3.style.color = "white"
+            cell4.style.color = "white"
+            cell5.style.color = "white"
+            cell6.style.color = "white"
 
             document.getElementById("userBody").appendChild(row);
 

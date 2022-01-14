@@ -26,24 +26,30 @@ async function pending() {
 
             let cell = document.createElement("td");
             cell.innerHTML = reimbursement.id;
+            cell.style.backgroundColor = "yellow";
             row.appendChild(cell);
 
             let cell2 = document.createElement("td");
             cell2.innerHTML = reimbursement.amount;
+            cell2.style.backgroundColor = "yellow";
             row.appendChild(cell2);
 
             let cell3 = document.createElement("td");
             cell3.innerHTML = reimbursement.typee;
+            cell3.style.backgroundColor = "yellow";
             row.appendChild(cell3);
 
             let cell4 = document.createElement("td");
             cell4.innerHTML = reimbursement.status;
             if (cell4.innerHTML == "PENDING") {
                 cell4.style.backgroundColor = "yellow";
-            } else{
-                cell4.style.backgroundColor = "red";
             }
             row.appendChild(cell4);
+
+            cell.style.backgroundColor = "rgba(255,255,0,0.8)";
+            cell2.style.backgroundColor = "rgba(255,255,0,0.8)";
+            cell3.style.backgroundColor = "rgba(255,255,0,0.8)";
+            cell4.style.backgroundColor = "rgba(255,255,0,0.8)";
 
             document.getElementById("userBody").appendChild(row);
 

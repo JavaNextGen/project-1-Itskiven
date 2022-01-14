@@ -54,11 +54,11 @@ async function login() {
 
     //control flow based on successful/unsuccessful login
     if(response.status === 200) {
-        document.getElementById("text").innerText="WELCOME EMPLOYEE!";
+        document.getElementById("text").innerText="Welcome!!!";
          window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/employee/employee.html";}, 3000);
      
     } else if (response.status === 202){
-        document.getElementById("text").innerText="WELCOME FINANCE MANAGER!";
+        document.getElementById("text").innerText="Welcome!!!";
         window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/financemanager/financemanager.html";}, 3000);
      
     }

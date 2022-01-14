@@ -45,7 +45,11 @@ async function worker() {
 
             document.getElementById("userBody").appendChild(row);
 
-            
+            cell.style.backgroundColor = "pink";
+            cell2.style.backgroundColor = "pink";
+            cell3.style.backgroundColor = "pink";
+            cell4.style.backgroundColor = "pink";
+            cell5.style.backgroundColor = "pink";
         }
     }
 
@@ -88,7 +92,13 @@ async function typing() {
                 let cell5 = document.createElement("td");
                 cell5.innerHTML = data.value.role;
                 row.appendChild(cell5);
-    
+
+                cell.style.backgroundColor = "pink";
+                cell2.style.backgroundColor = "pink";
+                cell3.style.backgroundColor = "pink";
+                cell4.style.backgroundColor = "pink";
+                cell5.style.backgroundColor = "pink";
+                
                 document.getElementById("userBody").appendChild(row);
 
             }
@@ -126,6 +136,12 @@ async function typing() {
                 let cell5 = document.createElement("td");
                 cell5.innerHTML = data.value.role;
                 row.appendChild(cell5);
+
+                cell.style.backgroundColor = "pink";
+                cell2.style.backgroundColor = "pink";
+                cell3.style.backgroundColor = "pink";
+                cell4.style.backgroundColor = "pink";
+                cell5.style.backgroundColor = "pink";
     
                 document.getElementById("userBody").appendChild(row);
     
