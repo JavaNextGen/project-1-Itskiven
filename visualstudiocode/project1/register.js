@@ -43,4 +43,3 @@ async function create(){
         window.setTimeout(function(){window.location.href = "file:///C:/Users/admin/OneDrive/Desktop/PROJECT%201/project-1-Itskiven/visualstudiocode/project1/register.html";}, 3000);
     }
 }
-
